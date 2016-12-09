@@ -1,7 +1,5 @@
 package com.app.windshot.api.rest;
 
-;
-
 import com.app.snapshot.Snap;
 import com.app.snapshot.api.model.User;
 import com.app.snapshot.api.model.Wind;
@@ -14,6 +12,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
@@ -23,7 +22,8 @@ import okhttp3.Request;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import java.lang.reflect.Type;
+
+;
 
 public class Api {
 
