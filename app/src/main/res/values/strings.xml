@@ -1,3 +1,28 @@
 <resources>
-    <string name="app_name">Windshot</string>
+    <string name="app_name">Snapshot</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="email">Email address</string>
+    <string name="password">Password</string>
+    <string name="account_creation">Create an account</string>
+    <string name="next_step">Next step</string>
+    <string name="user_welcome">Already a member? Login</string>
+    <string name="dialog_picture_profile">Choose a profile picture</string>
+    <string name="name">Name</string>
+    <string name="pseudo">Pseudo</string>
+    <string name="btn_login">Login</string>
+    <string name="pseudo_empty">Pseudo cannon\'t be empty!</string>
+    <string name="pseudo_taken">Pseudo already taken</string>
+    <string name="email_empty">Email cannon\'t be empty</string>
+    <string name="email_taken">Email is already taken</string>
+    <string name="empty">Value cannon\'t be empty</string>
+    <string name="pass_invalid">Too short or invalid...</string>
+    <string name="email_invalid">Email is invalid</string>
+    <string name="user_add_friend">Add friend</string>
+
+    <string-array name="img_change">
+        <item>Upload an Image</item>
+        <item>Take a Picture</item>
+    </string-array>
 </resources>
