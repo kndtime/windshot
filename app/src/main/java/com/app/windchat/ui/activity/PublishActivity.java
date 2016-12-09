@@ -13,7 +13,6 @@ import java.io.File;
 
 public class PublishActivity extends AppCompatActivity {
 
-    Bitmap bitmap;
     File file;
     private ImageView content;
 
@@ -28,6 +27,8 @@ public class PublishActivity extends AppCompatActivity {
     }
 
     private void initViews(){
-        Picasso.with(this).load(file).fit().centerCrop().into(content);
+        content = (ImageView) findViewById(R.id.content);
+        if (file != null)
+            Picasso.with(this).load(file).fit().centerCrop().into(content);
     }
 }
