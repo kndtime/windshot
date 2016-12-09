@@ -1,12 +1,12 @@
-package com.app.windshot.api.rest;
+package com.app.windchat.api.rest;
 
-import com.app.snapshot.Snap;
-import com.app.snapshot.api.model.User;
-import com.app.snapshot.api.model.Wind;
-import com.app.snapshot.api.rest.serializer.ListUserDeserializer;
-import com.app.snapshot.api.rest.serializer.ListWindDeserializer;
-import com.app.snapshot.api.rest.serializer.UserDeserializer;
-import com.app.snapshot.api.rest.serializer.WindDeserializer;
+import com.app.windchat.Snap;
+import com.app.windchat.api.model.User;
+import com.app.windchat.api.model.Wind;
+import com.app.windchat.api.rest.serializer.ListUserDeserializer;
+import com.app.windchat.api.rest.serializer.ListWindDeserializer;
+import com.app.windchat.api.rest.serializer.UserDeserializer;
+import com.app.windchat.api.rest.serializer.WindDeserializer;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;

@@ -1,6 +1,6 @@
-package com.app.windshot.api.rest.serializer;
+package com.app.windchat.api.rest.serializer;
 
-import com.app.snapshot.api.model.Wind;
+import com.app.windchat.api.model.User;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
@@ -15,16 +15,20 @@ import java.util.ArrayList;
  * Created by banal_a on 09/12/2016.
  */
 
-public class ListWindDeserializer implements JsonDeserializer<ArrayList<Wind>> {
-    @Override
-    public ArrayList<Wind> deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-        // Get the "content" element from the parsed JSON
-        JsonArray datauser = json.getAsJsonObject().getAsJsonArray("winds");
+public class ListUserDeserializer implements JsonDeserializer<ArrayList<User>> {
 
-        ArrayList<Wind> myList = new ArrayList<Wind>();
+    public ListUserDeserializer() {
+    }
+
+    @Override
+    public ArrayList<User> deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+        // Get the "content" element from the parsed JSON
+        JsonArray datauser = json.getAsJsonObject().getAsJsonArray();
+
+        ArrayList<User> myList = new ArrayList<User>();
         if (datauser!=null) {
             for (JsonElement e : datauser) {
-                myList.add(new Gson().fromJson(e, Wind.class));
+                myList.add(new Gson().fromJson(e, User.class));
             }
         }
         return myList;

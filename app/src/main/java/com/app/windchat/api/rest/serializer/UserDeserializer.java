@@ -1,6 +1,6 @@
-package com.app.windshot.api.rest.serializer;
+package com.app.windchat.api.rest.serializer;
 
-import com.app.snapshot.api.model.Wind;
+import com.app.windchat.api.model.User;
 import com.google.gson.Gson;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
@@ -13,14 +13,18 @@ import java.lang.reflect.Type;
  * Created by banal_a on 09/12/2016.
  */
 
-public class WindDeserializer implements JsonDeserializer<Wind> {
+public class UserDeserializer implements JsonDeserializer<User> {
+
+    public UserDeserializer() {
+    }
+
     @Override
-    public Wind deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+    public User deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         // Get the "content" element from the parsed JSON
-        JsonElement content = json.getAsJsonObject().get("wind");
+        JsonElement content = json.getAsJsonObject();
 
         // Deserialize it. You use a new instance of Gson to avoid infinite recursion
         // to this deserializer
-        return new Gson().fromJson(content, Wind.class);
+        return new Gson().fromJson(content, User.class);
     }
 }

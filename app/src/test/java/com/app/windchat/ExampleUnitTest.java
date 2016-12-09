@@ -1,4 +1,4 @@
-package com.app.windshot;
+package com.app.windchat;
 
 import org.junit.Test;
 

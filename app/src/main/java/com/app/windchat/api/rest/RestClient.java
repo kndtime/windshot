@@ -1,7 +1,8 @@
-package com.app.windshot.api.rest;
+package com.app.windchat.api.rest;
 
-import com.app.snapshot.api.model.User;
-import com.app.snapshot.api.model.Wind;
+
+import com.app.windchat.api.model.User;
+import com.app.windchat.api.model.Wind;
 
 import java.util.ArrayList;
 

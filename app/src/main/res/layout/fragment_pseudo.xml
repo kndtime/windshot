@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fitsSystemWindows="true"
+    tools:context="com.app.windchat.ui.fragment.signup.PseudoFragment">>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp"
+        android:paddingTop="56dp"
+        android:baselineAligned="false">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="72dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="24dp"
+            android:src="@drawable/windchat_logo"
+            android:cropToPadding="false"
+            android:visibility="gone" />
+
+
+        <com.mikhaellopez.circularimageview.CircularImageView
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:id="@+id/user_img"
+            android:src="@mipmap/ic_launcher"
+            android:gravity="center"
+            android:layout_gravity="center"
+            app:civ_border_color="#EEEEEE"
+            app:civ_border_width="4dp"
+            app:civ_shadow="true"
+            app:civ_shadow_radius="10"
+            app:civ_shadow_color="#8BC34A"
+            android:layout_weight="1"
+            android:layout_margin="16dp"
+            android:scaleType="centerCrop" />
+
+        <!--  Name Label -->
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp">
+
+            <EditText
+                android:id="@+id/user_pseudo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/pseudo"
+                android:inputType="textCapWords" />
+        </android.support.design.widget.TextInputLayout>
+
+        <!-- Signup Button -->
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btn_create"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="24dp"
+            android:layout_marginTop="24dp"
+            android:padding="12dp"
+            style="@style/SnapButton"
+            android:text="@string/account_creation" />
+
+    </LinearLayout>
+</ScrollView>

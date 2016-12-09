@@ -1,4 +1,4 @@
-package com.app.windshot;
+package com.app.windchat;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

@@ -1,4 +1,4 @@
-package com.app.windshot.api.model;
+package com.app.windchat.api.model;
 
 import java.util.ArrayList;
 
