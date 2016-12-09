@@ -3,9 +3,12 @@ package com.app.windchat;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.graphics.drawable.Drawable;
 import android.os.Environment;
 import android.util.Base64;
+import android.view.WindowManager;
 
 import com.app.windchat.ui.activity.MainActivity;
 
@@ -57,6 +60,22 @@ public class Utils {
         bm.compress(Bitmap.CompressFormat.JPEG, 100, baos); //bm is the bitmap object
         byte[] b = baos.toByteArray();
         return Base64.encodeToString(b, Base64.DEFAULT);
+    }
+
+    public static Bitmap combineImages(Bitmap background, Bitmap foreground, WindowManager window) {
+
+        int width = 0, height = 0;
+        Bitmap cs;
+
+        width = window.getDefaultDisplay().getWidth();
+        height = window.getDefaultDisplay().getHeight();
+
+        cs = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Canvas comboImage = new Canvas(cs);
+        background = Bitmap.createScaledBitmap(background, width, height, true);
+        comboImage.drawBitmap(background, 0, 0, null);
+        comboImage.drawBitmap(foreground, new Matrix(), null);
+        return cs;
     }
 
     public static String imgTo64(byte[] b){

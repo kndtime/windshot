@@ -1,6 +1,7 @@
 package com.app.windchat.api.rest;
 
 
+import com.app.windchat.api.model.RestCode;
 import com.app.windchat.api.model.User;
 import com.app.windchat.api.model.Wind;
 
@@ -8,6 +9,7 @@ import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 
@@ -25,4 +27,7 @@ public interface RestClient {
 
     @GET("/api/wind/list")
     Call<ArrayList<Wind>> get_winds();
+
+    @POST("/api/wind")
+    Call<RestCode> wind_post(@Body Wind wind);
 }

@@ -1,19 +1,28 @@
 package com.app.windchat.api.model;
 
+import com.google.gson.annotations.SerializedName;
+
+import org.parceler.Parcel;
+
 import java.util.ArrayList;
 
 /**
  * Created by banal_a on 06/12/2016.
  */
-
+@Parcel
 public class Wind {
+
+    @SerializedName("duration")
     private int duration;
+    @SerializedName("latitude")
     private double latitude;
+    @SerializedName("longitude")
     private double longitude;
+    @SerializedName("recipients")
     private ArrayList<Integer> recipients;
+    @SerializedName("image")
     private String image;
     private User user;
-
 
     public Wind() {
         this.duration = 0;
@@ -46,6 +55,10 @@ public class Wind {
 
     public User getUser() {
         return user;
+    }
+
+    public String getFrom(){
+        return user.getCompleteName();
     }
 
     public void setDuration(int duration) {

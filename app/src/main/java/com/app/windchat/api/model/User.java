@@ -125,6 +125,10 @@ public class User {
         this.pictureUrlSmall = pictureUrlSmall;
     }
 
+    public String getCompleteName(){
+        return firstname + " " + lastname;
+    }
+
     public String getEmail() {
         return email;
     }

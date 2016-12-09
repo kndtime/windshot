@@ -1,8 +1,11 @@
 package com.app.windchat.ui.fragment.main;
 
+import android.hardware.Camera;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -56,6 +59,8 @@ public class CameraFragment extends Fragment implements CameraHostProvider {
         btnStory = (ImageView) root.findViewById(R.id.btn_story);
         btnFlash = (ImageView) root.findViewById(R.id.btn_flash);
         btnProfile = (ImageView) root.findViewById(R.id.btn_profile);
+        btnSwap = (ImageView) root.findViewById(R.id.btn_swap);
+
         btnWind.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -71,7 +76,6 @@ public class CameraFragment extends Fragment implements CameraHostProvider {
         btnFlash.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), cameraView.getFlashMode(), Toast.LENGTH_SHORT).show();
                 if (cameraView.getFlashMode().equals("off")) {
                     setFlashMode("on");
                     btnFlash.setImageResource(R.drawable.flash_on_24dp);
@@ -80,6 +84,20 @@ public class CameraFragment extends Fragment implements CameraHostProvider {
                     setFlashMode("off");
                     btnFlash.setImageResource(R.drawable.flash_off_24dp);
                 }
+            }
+        });
+
+        btnSwap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                swapCamera();
+            }
+        });
+
+        cameraView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return gd.onTouchEvent(event);
             }
         });
     }
@@ -94,6 +112,12 @@ public class CameraFragment extends Fragment implements CameraHostProvider {
 
     public void setFlashMode(String mode) {
         cameraView.setFlashMode(mode);
+    }
+
+    public void swapCamera(){
+        cameraView.onPause();
+        MainActivity.toggle();
+        cameraView.onResume();
     }
 
     @Override
@@ -117,4 +141,35 @@ public class CameraFragment extends Fragment implements CameraHostProvider {
     public CameraHost getCameraHost() {
         return new MainActivity().getCameraHost();
     }
+
+    final GestureDetector gd = new GestureDetector(getActivity(), new GestureDetector.SimpleOnGestureListener(){
+
+
+        //here is the method for double tap
+
+
+        @Override
+        public boolean onDoubleTap(MotionEvent e) {
+            swapCamera();
+            return true;
+        }
+
+        @Override
+        public void onLongPress(MotionEvent e) {
+            super.onLongPress(e);
+
+        }
+
+        @Override
+        public boolean onDoubleTapEvent(MotionEvent e) {
+            return true;
+        }
+
+        @Override
+        public boolean onDown(MotionEvent e) {
+            return true;
+        }
+
+
+    });
 }

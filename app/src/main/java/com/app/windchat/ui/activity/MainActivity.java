@@ -9,6 +9,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
 import com.app.windchat.R;
+import com.app.windchat.Snap;
 import com.app.windchat.ui.adapter.viewpager.MainPagerAdapter;
 import com.commonsware.cwac.camera.CameraHost;
 import com.commonsware.cwac.camera.CameraHostProvider;
@@ -25,11 +26,14 @@ public class MainActivity extends AppCompatActivity implements CameraHostProvide
 
     private static ViewPager pager;
     File photoPath;
+    public static boolean isFacing = true;
+    public static MyCameraHost cameraHost;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        cameraHost = new MyCameraHost(this);
         initViews();
     }
 
@@ -38,6 +42,10 @@ public class MainActivity extends AppCompatActivity implements CameraHostProvide
         MainPagerAdapter mainAdapter = new MainPagerAdapter(getSupportFragmentManager());
         pager.setAdapter(mainAdapter);
         pager.setCurrentItem(1);
+    }
+
+    public static void toggle(){
+        cameraHost.toggle();
     }
 
     public static ViewPager getPager() {
@@ -54,12 +62,13 @@ public class MainActivity extends AppCompatActivity implements CameraHostProvide
 
     @Override
     public CameraHost getCameraHost() {
-        return new MyCameraHost(this);
+        return cameraHost;
     }
 
     class MyCameraHost extends SimpleCameraHost {
 
         private Camera.Size previewSize;
+        private int camID = Camera.CameraInfo.CAMERA_FACING_FRONT;
 
         public MyCameraHost(Context ctxt) {
             super(ctxt);
@@ -92,9 +101,24 @@ public class MainActivity extends AppCompatActivity implements CameraHostProvide
                 }
             });
         }
+
+        @Override
+        public int getCameraId() {
+            return camID;
+        }
+
+        private void toggle() {
+            if(camID == Camera.CameraInfo.CAMERA_FACING_BACK){
+                camID = Camera.CameraInfo.CAMERA_FACING_FRONT;
+            }
+            else {
+                camID = Camera.CameraInfo.CAMERA_FACING_BACK;
+            }
+        }
     }
 
     private void showTakenPicture(Bitmap bitmap) {
+        Snap.setCurImg(bitmap);
         Intent intent = new Intent(this, PublishActivity.class);
         intent.putExtra("path", photoPath.getAbsolutePath());
         startActivity(intent);

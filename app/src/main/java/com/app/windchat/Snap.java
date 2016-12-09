@@ -3,6 +3,7 @@ package com.app.windchat;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 
 import com.app.windchat.api.model.User;
 import com.google.gson.Gson;
@@ -17,6 +18,7 @@ public class Snap extends Application{
     public static String PASS = "";
 
     private static User current;
+    private static Bitmap curImg;
 
     public static SharedPreferences preferences;
     private static SharedPreferences.Editor editor;
@@ -52,4 +54,13 @@ public class Snap extends Application{
         editor.apply();
     }
 
+    public static Bitmap getCurImg() {
+        Bitmap tmp = curImg;
+        curImg = null;
+        return tmp;
+    }
+
+    public static void setCurImg(Bitmap curImg) {
+        Snap.curImg = curImg;
+    }
 }
