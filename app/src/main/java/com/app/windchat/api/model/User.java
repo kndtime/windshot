@@ -14,13 +14,13 @@ public class User {
     private int id;
     @SerializedName("token")
     private String token;
-    @SerializedName("username")
+    @SerializedName("userName")
     private String username;
     @SerializedName("password")
     private String password;
-    @SerializedName("fisrtname")
+    @SerializedName("fisrtName")
     private String firstname;
-    @SerializedName("lastname")
+    @SerializedName("lastName")
     private String lastname;
     @SerializedName("email")
     private String email;
@@ -143,5 +143,9 @@ public class User {
 
     public String getImageStr64() {
         return imageStr64;
+    }
+
+    public String getPassword() {
+        return password;
     }
 }

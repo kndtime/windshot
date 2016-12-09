@@ -15,6 +15,7 @@ import com.app.windchat.api.rest.Api;
 import com.app.windchat.ui.adapter.viewpager.SignUpPagerAdapter;
 import com.app.windchat.ui.fragment.signup.InfoFragment;
 import com.app.windchat.ui.fragment.signup.PseudoFragment;
+import com.google.gson.JsonObject;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -51,9 +52,20 @@ public class SignUpActivity extends AppCompatActivity implements InfoFragment.On
     public void onCreationInteraction(User user) {
         current.setPictureUrl(user.getPictureUrl());
         current.setUsername(user.getUsername());
+        current.setImageStr64(user.getImageStr64());
         Toast.makeText(this, "User created..", Toast.LENGTH_SHORT).show();
         Api api = new Api();
-        Call<User> call = api.getRestClient().register(current);
+
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("email", current.getEmail());
+        jsonObject.addProperty("birthday", current.getBirthday());
+        jsonObject.addProperty("password", current.getPassword());
+        jsonObject.addProperty("userName", current.getUsername());
+        jsonObject.addProperty("firstName", current.getFirstname());
+        jsonObject.addProperty("lastName", current.getLastname());
+        jsonObject.addProperty("imageStr64", current.getImageStr64());
+
+        Call<User> call = api.getRestClient().register(jsonObject);
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {

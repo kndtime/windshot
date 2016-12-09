@@ -4,6 +4,7 @@ package com.app.windchat.api.rest;
 import com.app.windchat.api.model.RestCode;
 import com.app.windchat.api.model.User;
 import com.app.windchat.api.model.Wind;
+import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
 
@@ -21,6 +22,11 @@ public interface RestClient {
     @POST("/api/user/register")
     Call<User> register(
             @Body User user);
+
+    @POST("/api/user/register")
+    Call<User> register(
+            @Body JsonObject object);
+
 
     @POST("/api/user/login")
     Call<User> login(@Body User user);
