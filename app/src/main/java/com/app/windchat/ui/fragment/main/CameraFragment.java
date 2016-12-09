@@ -1,6 +1,5 @@
 package com.app.windchat.ui.fragment.main;
 
-import android.hardware.Camera;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.GestureDetector;
@@ -10,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.app.windchat.R;
 import com.app.windchat.ui.activity.MainActivity;
@@ -144,10 +142,6 @@ public class CameraFragment extends Fragment implements CameraHostProvider {
 
     final GestureDetector gd = new GestureDetector(getActivity(), new GestureDetector.SimpleOnGestureListener(){
 
-
-        //here is the method for double tap
-
-
         @Override
         public boolean onDoubleTap(MotionEvent e) {
             swapCamera();
@@ -157,7 +151,7 @@ public class CameraFragment extends Fragment implements CameraHostProvider {
         @Override
         public void onLongPress(MotionEvent e) {
             super.onLongPress(e);
-
+            cameraView.autoFocus();
         }
 
         @Override
@@ -169,7 +163,6 @@ public class CameraFragment extends Fragment implements CameraHostProvider {
         public boolean onDown(MotionEvent e) {
             return true;
         }
-
 
     });
 }

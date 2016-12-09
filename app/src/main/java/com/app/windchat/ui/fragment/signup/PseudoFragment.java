@@ -191,7 +191,6 @@ public class PseudoFragment extends Fragment {
                     .fit().centerInside()
                     .into(user_img);
             current.setImageStr64(Utils.imgTo64(picturePath));
-            //image.setImageURI(selectedImage);
         }
 
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == -1 && null != data) {
