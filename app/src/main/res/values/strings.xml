@@ -20,6 +20,8 @@
     <string name="pass_invalid">Too short or invalid...</string>
     <string name="email_invalid">Email is invalid</string>
     <string name="user_add_friend">Add friend</string>
+    <string name="user_added_friend">Added me</string>
+    <string name="search">Search an username</string>
 
     <string-array name="img_change">
         <item>Upload an Image</item>

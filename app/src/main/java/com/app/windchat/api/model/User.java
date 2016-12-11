@@ -4,6 +4,8 @@ import com.google.gson.annotations.SerializedName;
 
 import org.parceler.Parcel;
 
+import java.util.ArrayList;
+
 /**
  * Created by banal_a on 06/12/2016.
  */
@@ -34,6 +36,8 @@ public class User {
     private String pictureUrlSmall;
     @SerializedName("imageStr64")
     String imageStr64;
+    @SerializedName("winds")
+    ArrayList<Wind> winds;
 
     public User() {
         this.id = 0;
@@ -47,6 +51,7 @@ public class User {
         this.pictureUrl = "";
         this.pictureUrlSmall = "";
         this.imageStr64 = "";
+        this.winds = new ArrayList<>();
     }
 
     public int getId() {
@@ -147,5 +152,9 @@ public class User {
 
     public String getPassword() {
         return password;
+    }
+
+    public ArrayList<Wind> getWinds() {
+        return winds;
     }
 }

@@ -12,6 +12,7 @@ import com.app.windchat.api.model.Wind;
 import com.app.windchat.ui.view.WindViewHolder;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.zip.Inflater;
 
 /**
@@ -50,5 +51,21 @@ public class WindRecyclerAdapter extends RecyclerView.Adapter<WindViewHolder> {
 
     private Wind getItem(int position) {
         return items.get(position);
+    }
+
+    private void add(Wind item) {
+        items.add(item);
+        notifyItemInserted(items.size()-1);
+    }
+
+    public void addAll(List<Wind> videos) {
+        for (Wind user : videos) {
+            add(user);
+        }
+    }
+
+    public void clearAll(){
+        items.clear();
+        notifyDataSetChanged();
     }
 }

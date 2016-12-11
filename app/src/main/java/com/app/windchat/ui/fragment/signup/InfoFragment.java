@@ -102,7 +102,7 @@ public class InfoFragment extends Fragment {
             edit_lname.setError(Utils.getString(R.string.empty));
         }
 
-        if (password.isEmpty() || password.length() <= 6){
+        if (password.isEmpty() || password.length() < 6){
             valid = false;
             edit_password.setError(Utils.getString(R.string.pass_invalid));
         }

@@ -33,7 +33,7 @@ public class PublishActivity extends AppCompatActivity {
         wind = new Wind();
         wind.setDuration(10);
         wind.getRecipients().add(77);
-        wind.getRecipients().add(3);
+        //wind.getRecipients().add(3);
         Intent intent = getIntent();
         file = new File(intent.getStringExtra("path"));
         wind.setImage(Utils.imgTo64(file.getAbsolutePath()));

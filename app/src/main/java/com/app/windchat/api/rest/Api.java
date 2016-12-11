@@ -7,6 +7,7 @@ import com.app.windchat.api.rest.serializer.ListUserDeserializer;
 import com.app.windchat.api.rest.serializer.ListWindDeserializer;
 import com.app.windchat.api.rest.serializer.UserDeserializer;
 import com.app.windchat.api.rest.serializer.WindDeserializer;
+import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -46,6 +47,10 @@ public class Api {
 
         //TODO : Had Gson convert factories
         Gson api_models = new GsonBuilder()
+                .enableComplexMapKeySerialization()
+                .serializeNulls()
+                .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
+                .setPrettyPrinting()
                 .setDateFormat("yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'SSS'Z'")
                 .registerTypeAdapter(user, new UserDeserializer())
                 .registerTypeAdapter(listUser, new ListUserDeserializer())

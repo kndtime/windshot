@@ -47,27 +47,31 @@ public class MediaFragment extends Fragment {
         // Inflate the layout for this fragment
         current = Snap.getCurrent();
         root = inflater.inflate(R.layout.fragment_media, container, false);
-        list = (RecyclerView) root.findViewById(R.id.rvToDoList);
+        list = (RecyclerView) root.findViewById(R.id.list);
         RecyclerView.LayoutManager llm = new LinearLayoutManager(getActivity());
         list.setLayoutManager(llm);
-
         list.setItemAnimator(new DefaultItemAnimator());
         final ArrayList<Wind> winds = new ArrayList<>();
-        Call<ArrayList<Wind>> call =  new Api().getRestClient().get_winds();
-        call.enqueue(new Callback<ArrayList<Wind>>() {
+        final WindRecyclerAdapter adapter = new WindRecyclerAdapter(getContext(), winds);
+        list.setAdapter(adapter);
+
+        Call<ArrayList<User>> call =  new Api().getRestClient().get_winds();
+        call.enqueue(new Callback<ArrayList<User>>() {
             @Override
-            public void onResponse(Call<ArrayList<Wind>> call, Response<ArrayList<Wind>> response) {
+            public void onResponse(Call<ArrayList<User>> call, Response<ArrayList<User>> response) {
                 if (response.isSuccessful()){
                     winds.clear();
-                    winds.addAll(response.body());
-                    list.setAdapter(new WindRecyclerAdapter(getContext(),winds));
+                    for (User user : response.body()) {
+                        adapter.addAll(user.getWinds());
+                    }
+
                 }else {
                     Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<ArrayList<Wind>> call, Throwable t) {
+            public void onFailure(Call<ArrayList<User>> call, Throwable t) {
 
             }
         });

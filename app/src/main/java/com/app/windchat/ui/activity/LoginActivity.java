@@ -82,7 +82,7 @@ public class LoginActivity extends AppCompatActivity {
         String email = edit_email.getText().toString();
         String password = edit_password.getText().toString();
 
-        if (password.isEmpty() || password.length() <= 6){
+        if (password.isEmpty() || password.length() < 6){
             valid = false;
             edit_password.setError(Utils.getString(R.string.pass_invalid));
         }

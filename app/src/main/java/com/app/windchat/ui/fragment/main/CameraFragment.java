@@ -1,5 +1,6 @@
 package com.app.windchat.ui.fragment.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.GestureDetector;
@@ -9,12 +10,25 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.app.windchat.R;
+import com.app.windchat.Snap;
+import com.app.windchat.api.model.User;
+import com.app.windchat.api.rest.Api;
+import com.app.windchat.ui.activity.AddFriendActivity;
+import com.app.windchat.ui.activity.FriendActivity;
 import com.app.windchat.ui.activity.MainActivity;
 import com.commonsware.cwac.camera.CameraHost;
 import com.commonsware.cwac.camera.CameraHostProvider;
 import com.commonsware.cwac.camera.CameraView;
+import com.mikhaellopez.circularimageview.CircularImageView;
+import com.sothree.slidinguppanel.SlidingUpPanelLayout;
+import com.squareup.picasso.Picasso;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class CameraFragment extends Fragment implements CameraHostProvider {
@@ -23,8 +37,12 @@ public class CameraFragment extends Fragment implements CameraHostProvider {
     private View root;
     private CameraView cameraView;
     private ImageView ivTakenPhoto;
+    private CircularImageView sl_img;
     private Button btnTakePhoto;
     private ImageView btnFlash, btnProfile, btnSwap, btnWind, btnStory;
+    private TextView sl_name, sl_username, sl_add_friend, sl_added_me;
+    private SlidingUpPanelLayout slidingUpPanel;
+    private User current;
 
     public CameraFragment() {
         // Required empty public constructor
@@ -40,6 +58,7 @@ public class CameraFragment extends Fragment implements CameraHostProvider {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         root =  inflater.inflate(R.layout.fragment_camera, container, false);
+        current = Snap.getCurrent();
         initViews();
         return root;
     }
@@ -58,7 +77,21 @@ public class CameraFragment extends Fragment implements CameraHostProvider {
         btnFlash = (ImageView) root.findViewById(R.id.btn_flash);
         btnProfile = (ImageView) root.findViewById(R.id.btn_profile);
         btnSwap = (ImageView) root.findViewById(R.id.btn_swap);
+        sl_img = (CircularImageView) root.findViewById(R.id.img);
+        sl_name = (TextView) root.findViewById(R.id.name);
+        sl_username = (TextView) root.findViewById(R.id.username);
+        sl_add_friend = (TextView) root.findViewById(R.id.add_friend);
+        sl_added_me = (TextView) root.findViewById(R.id.added_me);
+        slidingUpPanel = (SlidingUpPanelLayout) root.findViewById(R.id.sliding_layout);
 
+        fetchUser();
+
+        btnProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                slidingUpPanel.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
+            }
+        });
         btnWind.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -74,6 +107,8 @@ public class CameraFragment extends Fragment implements CameraHostProvider {
         btnFlash.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (cameraView.getFlashMode() == null)
+                    return;
                 if (cameraView.getFlashMode().equals("off")) {
                     setFlashMode("on");
                     btnFlash.setImageResource(R.drawable.flash_on_24dp);
@@ -116,6 +151,59 @@ public class CameraFragment extends Fragment implements CameraHostProvider {
         cameraView.onPause();
         MainActivity.toggle();
         cameraView.onResume();
+    }
+
+    private void setProfile(){
+        Picasso.with(getActivity())
+                .load(current.getPictureUrl())
+                .fit().centerCrop()
+                .into(sl_img);
+        sl_name.setText(current.getCompleteName());
+        sl_username.setText(current.getUsername());
+
+        sl_img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getActivity(), FriendActivity.class);
+                getActivity().startActivity(i);
+            }
+        });
+
+        sl_added_me.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getActivity(), FriendActivity.class);
+                i.putExtra("friend", false);
+                getActivity().startActivity(i);
+            }
+        });
+
+        sl_add_friend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getActivity(), AddFriendActivity.class);
+                i.putExtra("friend", false);
+                getActivity().startActivity(i);
+            }
+        });
+    }
+
+    private void fetchUser(){
+        Call<User> call = new Api().getRestClient().get_profile();
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                if (response.isSuccessful()){
+                    current = response.body();
+                }
+                setProfile();
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+
+            }
+        });
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.app.windchat;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -8,7 +9,9 @@ import android.graphics.Matrix;
 import android.graphics.drawable.Drawable;
 import android.os.Environment;
 import android.util.Base64;
+import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.AnimationUtils;
 
 import com.app.windchat.ui.activity.MainActivity;
 
@@ -80,5 +83,9 @@ public class Utils {
 
     public static String imgTo64(byte[] b){
         return Base64.encodeToString(b, Base64.DEFAULT);
+    }
+
+    public static void animateError(Context context, View view){
+        view.startAnimation(AnimationUtils.loadAnimation(context, R.anim.shake_error));
     }
 }

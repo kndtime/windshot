@@ -4,5 +4,6 @@
     <color name="colorPrimaryDark">#D1AB6C</color>
     <color name="colorPrimaryTrans">#c2e8b419</color>
     <color name="colorAccent">#ffffff</color>
+    <color name="windowBackground">#f5f8fa</color>
     <color name="white">#ffffff</color>
 </resources>

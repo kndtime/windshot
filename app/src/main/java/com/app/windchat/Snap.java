@@ -6,7 +6,12 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 
 import com.app.windchat.api.model.User;
+import com.app.windchat.api.rest.Api;
 import com.google.gson.Gson;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by banal_a on 05/12/2016.
@@ -59,6 +64,7 @@ public class Snap extends Application{
         curImg = null;
         return tmp;
     }
+
 
     public static void setCurImg(Bitmap curImg) {
         Snap.curImg = curImg;
