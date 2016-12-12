@@ -16,7 +16,7 @@ public class FriendListViewHolder extends RecyclerView.ViewHolder{
 
     private ImageView user_add;
     private ImageView user_delete;
-    private TextView user_name;
+    private TextView user_name, user_uname;
     private CircularImageView user_img;
 
     public FriendListViewHolder(View v) {
@@ -25,6 +25,7 @@ public class FriendListViewHolder extends RecyclerView.ViewHolder{
         user_add = (ImageView) v.findViewById(R.id.user_add);
         user_delete = (ImageView) v.findViewById(R.id.user_delete);
         user_name = (TextView) v.findViewById(R.id.user_name);
+        user_uname = (TextView) v.findViewById(R.id.user_uname);
     }
 
     public ImageView getUser_add() {
@@ -41,5 +42,9 @@ public class FriendListViewHolder extends RecyclerView.ViewHolder{
 
     public CircularImageView getUser_img() {
         return user_img;
+    }
+
+    public TextView getUser_uname() {
+        return user_uname;
     }
 }

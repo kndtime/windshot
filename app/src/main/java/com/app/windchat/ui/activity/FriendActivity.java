@@ -12,6 +12,9 @@ import com.app.windchat.R;
 import com.app.windchat.api.model.User;
 import com.app.windchat.api.rest.Api;
 import com.app.windchat.ui.adapter.list.FriendListRecyclerAdapter;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 
 import java.util.ArrayList;
 
@@ -54,39 +57,45 @@ public class FriendActivity extends AppCompatActivity {
     }
 
     private void request(){
-        Call<ArrayList<User>> call = new Api().getRestClient().get_friends();
-        call.enqueue(new Callback<ArrayList<User>>() {
+        Call<JsonElement> call  = new Api().getRestClient().get_rawfriends();
+        call.enqueue(new Callback<JsonElement>() {
             @Override
-            public void onResponse(Call<ArrayList<User>> call, Response<ArrayList<User>> response) {
+            public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
                 if (response.isSuccessful()){
-                    adapter.addAll(response.body());
-                } else {
-                    Toast.makeText(FriendActivity.this, response.message(), Toast.LENGTH_SHORT).show();
+                    JsonArray array = response.body().getAsJsonArray();
+                    if (array!=null) {
+                        for (JsonElement e : array) {
+                            adapter.add(new Gson().fromJson(e, User.class));
+                        }
+                    }
                 }
             }
 
             @Override
-            public void onFailure(Call<ArrayList<User>> call, Throwable t) {
-                Toast.makeText(FriendActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+            public void onFailure(Call<JsonElement> call, Throwable t) {
+
             }
         });
     }
 
     private void friend(){
-        Call<ArrayList<User>> call = new Api().getRestClient().get_pendingList();
-        call.enqueue(new Callback<ArrayList<User>>() {
+        Call<JsonElement> call  = new Api().getRestClient().get_rawpendingList();
+        call.enqueue(new Callback<JsonElement>() {
             @Override
-            public void onResponse(Call<ArrayList<User>> call, Response<ArrayList<User>> response) {
+            public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
                 if (response.isSuccessful()){
-                    adapter.addAll(response.body());
-                } else {
-                    Toast.makeText(FriendActivity.this, response.message(), Toast.LENGTH_SHORT).show();
+                    JsonArray array = response.body().getAsJsonArray();
+                    if (array!=null) {
+                        for (JsonElement e : array) {
+                            adapter.add(new Gson().fromJson(e, User.class));
+                        }
+                    }
                 }
             }
 
             @Override
-            public void onFailure(Call<ArrayList<User>> call, Throwable t) {
-                Toast.makeText(FriendActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+            public void onFailure(Call<JsonElement> call, Throwable t) {
+
             }
         });
     }

@@ -44,7 +44,8 @@
         <activity android:name=".ui.activity.SignUpActivity" />
         <activity android:name=".ui.activity.PublishActivity" />
         <activity android:name=".ui.activity.FriendActivity" />
-        <activity android:name=".ui.activity.AddFriendActivity"></activity>
+        <activity android:name=".ui.activity.AddFriendActivity" />
+        <activity android:name=".ui.activity.ShowTImeActivity"></activity>
     </application>
 
 </manifest>

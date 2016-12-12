@@ -47,6 +47,8 @@ public class FriendListRecyclerAdapter extends RecyclerView.Adapter<FriendListVi
                 .fit().centerCrop()
                 .into(holder.getUser_img());
         holder.getUser_name().setText(user.getCompleteName());
+        String usname = "@" + user.getUsername();
+        holder.getUser_uname().setText(usname);
         if (isFriend){
             holder.getUser_delete().setVisibility(View.GONE);
         }
@@ -59,7 +61,7 @@ public class FriendListRecyclerAdapter extends RecyclerView.Adapter<FriendListVi
 
     private User getItem(int position){ return mItems.get(position);}
 
-    private void add(User item) {
+    public void add(User item) {
         mItems.add(item);
         notifyItemInserted(mItems.size()-1);
     }

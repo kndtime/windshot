@@ -19,6 +19,7 @@ import com.app.windchat.api.rest.Api;
 import com.app.windchat.ui.activity.AddFriendActivity;
 import com.app.windchat.ui.activity.FriendActivity;
 import com.app.windchat.ui.activity.MainActivity;
+import com.app.windchat.ui.view.SwipeGestureDetector;
 import com.commonsware.cwac.camera.CameraHost;
 import com.commonsware.cwac.camera.CameraHostProvider;
 import com.commonsware.cwac.camera.CameraView;
@@ -133,6 +134,17 @@ public class CameraFragment extends Fragment implements CameraHostProvider {
                 return gd.onTouchEvent(event);
             }
         });
+
+
+        final GestureDetector gestureDectector = new GestureDetector(getActivity(),
+                new SwipeGestureDetector(slidingUpPanel));
+        View.OnTouchListener gestureListener =  new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return gestureDectector.onTouchEvent(event);
+            }
+        };
+        root.setOnTouchListener(gestureListener);
     }
 
     public void startFaceDetection() {

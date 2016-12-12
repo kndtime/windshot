@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 
 import com.app.windchat.R;
+import com.app.windchat.Utils;
 import com.app.windchat.api.model.Wind;
 import com.app.windchat.ui.view.WindViewHolder;
 
@@ -40,8 +41,8 @@ public class WindRecyclerAdapter extends RecyclerView.Adapter<WindViewHolder> {
     @Override
     public void onBindViewHolder(WindViewHolder holder, int position) {
         Wind item = getItem(holder.getAdapterPosition());
-        holder.getM_date().setText("");
-        holder.getM_name().setText("John Doe " + position);
+        holder.getM_date().setText(Utils.getTimeSpan(item.getSendDate()));
+        holder.getM_name().setText(item.getUser().getCompleteName());
     }
 
     @Override

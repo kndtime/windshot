@@ -18,6 +18,8 @@ public class Wind {
     private double latitude;
     @SerializedName("longitude")
     private double longitude;
+    @SerializedName("sendDate")
+    private String sendDate;
     @SerializedName("recipients")
     private ArrayList<Integer> recipients;
     @SerializedName("image")
@@ -30,6 +32,7 @@ public class Wind {
         this.longitude = 0;
         this.recipients = new ArrayList<>();
         this.image = "";
+        this.sendDate = "";
         this.user = new User();
     }
 
@@ -83,5 +86,9 @@ public class Wind {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public String getSendDate() {
+        return sendDate;
     }
 }

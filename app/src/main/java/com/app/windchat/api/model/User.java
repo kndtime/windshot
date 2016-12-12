@@ -157,4 +157,11 @@ public class User {
     public ArrayList<Wind> getWinds() {
         return winds;
     }
+
+    public void apply(){
+        for (Wind wind: winds
+             ) {
+            wind.setUser(this);
+        }
+    }
 }

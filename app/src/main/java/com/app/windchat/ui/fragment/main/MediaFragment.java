@@ -17,6 +17,9 @@ import com.app.windchat.api.model.User;
 import com.app.windchat.api.model.Wind;
 import com.app.windchat.api.rest.Api;
 import com.app.windchat.ui.adapter.list.WindRecyclerAdapter;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -54,7 +57,32 @@ public class MediaFragment extends Fragment {
         final ArrayList<Wind> winds = new ArrayList<>();
         final WindRecyclerAdapter adapter = new WindRecyclerAdapter(getContext(), winds);
         list.setAdapter(adapter);
+        Call<JsonElement> call = new Api().getRestClient().get_rawwinds();
+        call.enqueue(new Callback<JsonElement>() {
+            @Override
+            public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
+                if (response.isSuccessful()){
+                    JsonArray array = response.body().getAsJsonArray();
+                    if (array!=null) {
+                        for (JsonElement e : array) {
+                            User user = new Gson().fromJson(e, User.class);
+                            user.apply();
+                            adapter.addAll(user.getWinds());
+                        }
+                    }
+                }
+            }
 
+            @Override
+            public void onFailure(Call<JsonElement> call, Throwable t) {
+
+            }
+        });
+
+        return root;
+    }
+
+    /*private void querry(){
         Call<ArrayList<User>> call =  new Api().getRestClient().get_winds();
         call.enqueue(new Callback<ArrayList<User>>() {
             @Override
@@ -75,7 +103,6 @@ public class MediaFragment extends Fragment {
 
             }
         });
-        return root;
-    }
+    }*/
 
 }

@@ -4,6 +4,7 @@ package com.app.windchat.api.rest;
 import com.app.windchat.api.model.RestCode;
 import com.app.windchat.api.model.User;
 import com.app.windchat.api.model.Wind;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
@@ -43,11 +44,17 @@ public interface RestClient {
     @GET("/api/wind/list")
     Call<ArrayList<User>> get_winds();
 
+    @GET("/api/wind/list")
+    Call<JsonElement> get_rawwinds();
+
     @POST("/api/wind")
     Call<RestCode> wind_post(@Body Wind wind);
 
     @GET("/api/friend/list")
     Call<ArrayList<User>> get_friends();
+
+    @GET("/api/friend/list")
+    Call<JsonElement> get_rawfriends();
 
     @POST("/api/friend")
     Call<RestCode> add_friend(@Body JsonObject object);
@@ -60,6 +67,9 @@ public interface RestClient {
 
     @GET("/api/friend/pendingList")
     Call<ArrayList<User>> get_pendingList();
+
+    @GET("/api/friend/pendingList")
+    Call<JsonElement> get_rawpendingList();
 
     @GET("/api/friend/blockedList")
     Call<ArrayList<User>> get_blockedList();

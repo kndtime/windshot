@@ -8,6 +8,7 @@ import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.drawable.Drawable;
 import android.os.Environment;
+import android.text.format.DateUtils;
 import android.util.Base64;
 import android.view.View;
 import android.view.WindowManager;
@@ -18,14 +19,22 @@ import com.app.windchat.ui.activity.MainActivity;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by banal_a on 07/12/2016.
  */
 
 public class Utils {
+
+    public static String dateFormat = "yyyy-MM-dd'T'HH:mm:ss";
+
+
     public static void startMainIntent(){
         Intent i = new Intent(Snap.getInstance(), MainActivity.class);
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -87,5 +96,29 @@ public class Utils {
 
     public static void animateError(Context context, View view){
         view.startAnimation(AnimationUtils.loadAnimation(context, R.anim.shake_error));
+    }
+
+    public static CharSequence getTimeSpan(String time) {
+        CharSequence tmp = "";
+        if (time!=""){
+            try {
+                DateFormat df2 = new SimpleDateFormat(dateFormat);
+                Date date = df2.parse(time);
+                Calendar c = Calendar.getInstance();
+                long now = c.getTimeInMillis();
+                long mills = date.getTime();
+                CharSequence elapsedtime = DateUtils.getRelativeTimeSpanString(mills, now, 0L, DateUtils.FORMAT_ABBREV_ALL);
+                return elapsedtime;
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }}
+        return tmp;
+    }
+
+    public static String getNowToString(){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormat);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(calendar.getTimeInMillis());
+        return simpleDateFormat.format(calendar.getTime());
     }
 }
