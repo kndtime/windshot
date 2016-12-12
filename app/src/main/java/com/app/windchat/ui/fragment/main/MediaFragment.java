@@ -54,8 +54,8 @@ public class MediaFragment extends Fragment {
         RecyclerView.LayoutManager llm = new LinearLayoutManager(getActivity());
         list.setLayoutManager(llm);
         list.setItemAnimator(new DefaultItemAnimator());
-        final ArrayList<Wind> winds = new ArrayList<>();
-        final WindRecyclerAdapter adapter = new WindRecyclerAdapter(getContext(), winds);
+        final ArrayList<User> user = new ArrayList<>();
+        final WindRecyclerAdapter adapter = new WindRecyclerAdapter(getContext(), user);
         list.setAdapter(adapter);
         Call<JsonElement> call = new Api().getRestClient().get_rawwinds();
         call.enqueue(new Callback<JsonElement>() {
@@ -67,7 +67,7 @@ public class MediaFragment extends Fragment {
                         for (JsonElement e : array) {
                             User user = new Gson().fromJson(e, User.class);
                             user.apply();
-                            adapter.addAll(user.getWinds());
+                            adapter.add(user);
                         }
                     }
                 }

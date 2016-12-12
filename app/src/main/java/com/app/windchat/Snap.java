@@ -23,6 +23,7 @@ public class Snap extends Application{
     public static String PASS = "";
 
     private static User current;
+    private static User TmpUser;
     private static Bitmap curImg;
 
     public static SharedPreferences preferences;
@@ -65,6 +66,13 @@ public class Snap extends Application{
         return tmp;
     }
 
+    public static User getTmpUser() {
+        return TmpUser;
+    }
+
+    public static void setTmpUser(User tmpUser) {
+        TmpUser = tmpUser;
+    }
 
     public static void setCurImg(Bitmap curImg) {
         Snap.curImg = curImg;

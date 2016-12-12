@@ -24,6 +24,8 @@ public class Wind {
     private ArrayList<Integer> recipients;
     @SerializedName("image")
     private String image;
+    @SerializedName("imageUrl")
+    private String imageUrl;
     private User user;
 
     public Wind() {
@@ -32,6 +34,7 @@ public class Wind {
         this.longitude = 0;
         this.recipients = new ArrayList<>();
         this.image = "";
+        this.imageUrl = "";
         this.sendDate = "";
         this.user = new User();
     }
@@ -90,5 +93,13 @@ public class Wind {
 
     public String getSendDate() {
         return sendDate;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }
