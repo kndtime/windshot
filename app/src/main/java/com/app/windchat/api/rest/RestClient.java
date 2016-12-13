@@ -32,6 +32,10 @@ public interface RestClient {
             @Body JsonObject object);
 
 
+    @GET("/api/user/restoredSession")
+    Call<User> refresh();
+
+
     @POST("/api/user/login")
     Call<User> login(@Body User user);
 
@@ -40,6 +44,9 @@ public interface RestClient {
 
     @GET("/api/user/search/{username}")
     Call<ArrayList<User>> search(@Path("username") String username);
+
+    @GET("/api/user/search/{username}")
+    Call<JsonElement> rawsearch(@Path("username") String username);
 
     @GET("/api/wind/list")
     Call<ArrayList<User>> get_winds();
@@ -60,7 +67,7 @@ public interface RestClient {
     Call<RestCode> add_friend(@Body JsonObject object);
 
     @PUT("/api/friend/{id}/accept")
-    Call<RestCode> accept(@Path("id") int id, JsonObject object);
+    Call<RestCode> accept(@Path("id") int id, @Body JsonObject object);
 
     @DELETE("/api/friend/{id}")
     Call<RestCode> delete(@Path("id") int id);

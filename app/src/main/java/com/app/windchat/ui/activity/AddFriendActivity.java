@@ -14,6 +14,9 @@ import com.app.windchat.api.model.RestCode;
 import com.app.windchat.api.model.User;
 import com.app.windchat.api.rest.Api;
 import com.app.windchat.ui.adapter.list.FriendListRecyclerAdapter;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
@@ -42,7 +45,7 @@ public class AddFriendActivity extends AppCompatActivity {
         list = (RecyclerView) findViewById(R.id.list);
         list.setLayoutManager(new LinearLayoutManager(this));
         users =new ArrayList<>();
-        adapter = new FriendListRecyclerAdapter(this, users, false);
+        adapter = new FriendListRecyclerAdapter(this, users, false, "TEST");
         list.setAdapter(adapter);
 
         search.addTextChangedListener(new TextWatcher() {
@@ -54,7 +57,7 @@ public class AddFriendActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 adapter.clearAll();
-                if (charSequence.length() > 3)
+                if (charSequence.length() >= 3)
                     sendSearch(charSequence.toString());
             }
 
@@ -66,17 +69,22 @@ public class AddFriendActivity extends AppCompatActivity {
     }
 
     private void sendSearch(String search){
-        Call<ArrayList<User>> call = new Api().getRestClient().search(search);
-        call.enqueue(new Callback<ArrayList<User>>() {
+        Call<JsonElement> call = new Api().getRestClient().rawsearch(search);
+        call.enqueue(new Callback<JsonElement>() {
             @Override
-            public void onResponse(Call<ArrayList<User>> call, Response<ArrayList<User>> response) {
+            public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
                 if (response.isSuccessful()){
-                    adapter.addAll(response.body());
+                    JsonArray array = response.body().getAsJsonArray();
+                    if (array!=null) {
+                        for (JsonElement e : array) {
+                            adapter.add(new Gson().fromJson(e, User.class));
+                        }
+                    }
                 }
             }
 
             @Override
-            public void onFailure(Call<ArrayList<User>> call, Throwable t) {
+            public void onFailure(Call<JsonElement> call, Throwable t) {
                 Toast.makeText(AddFriendActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });

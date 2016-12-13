@@ -48,10 +48,10 @@ tools:context="com.app.windchat.ui.activity.AddFriendActivity">
                         android:layout_marginLeft="4dp"
                         android:layout_marginRight="16dp"
                         android:lines="1"
-                        android:singleLine="true"
                         android:background="@android:color/transparent"
                         android:layout_weight="1"
-                        android:textColorHint="@color/material_grey_800" />
+                        android:textColorHint="@color/material_grey_800"
+                        android:textColor="@android:color/black"/>
 
                     <ImageView
                         android:layout_width="24dp"

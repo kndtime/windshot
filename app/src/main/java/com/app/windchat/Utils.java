@@ -37,7 +37,7 @@ public class Utils {
 
     public static void startMainIntent(){
         Intent i = new Intent(Snap.getInstance(), MainActivity.class);
-        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
         Snap.getInstance().startActivity(i);
     }
 

@@ -2,8 +2,12 @@ package com.app.windchat.ui.activity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.media.Image;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -12,18 +16,21 @@ import com.app.windchat.Utils;
 import com.app.windchat.api.model.RestCode;
 import com.app.windchat.api.model.Wind;
 import com.app.windchat.api.rest.Api;
+import com.app.windchat.ui.fragment.publish.ContactFragment;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PublishActivity extends AppCompatActivity {
+public class PublishActivity extends AppCompatActivity implements ContactFragment.onGetIdsListener {
 
     File file;
     private ImageView content;
+    private ImageView btn_publish, btn_time, btn_who;
     private Wind wind;
 
     @Override
@@ -32,19 +39,41 @@ public class PublishActivity extends AppCompatActivity {
         setContentView(R.layout.activity_publish);
         wind = new Wind();
         wind.setDuration(10);
-        wind.getRecipients().add(77);
-        //wind.getRecipients().add(3);
         Intent intent = getIntent();
         file = new File(intent.getStringExtra("path"));
         wind.setImage(Utils.imgTo64(file.getAbsolutePath()));
-        sendImage();
         initViews();
     }
 
     private void initViews(){
+        btn_publish = (ImageView) findViewById(R.id.btn_publish);
+        btn_time = (ImageView) findViewById(R.id.btn_time);
+        btn_who = (ImageView) findViewById(R.id.btn_who);
         content = (ImageView) findViewById(R.id.content);
         if (file != null)
-            Picasso.with(this).load(file).fit().centerInside().into(content);
+            Picasso.with(this)
+                    .load(file)
+                    .fit().centerInside()
+                    .into(content);
+
+        btn_publish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ContactFragment contactFragment = new ContactFragment();
+                FragmentManager fm = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fm.beginTransaction();
+                fragmentTransaction.replace(R.id.activity_publish, contactFragment);
+                fragmentTransaction.addToBackStack("contact_fragment");
+                fragmentTransaction.commit();
+            }
+        });
+
+        btn_who.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
     public void sendImage(){
@@ -65,5 +94,11 @@ public class PublishActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public void onGetIds(ArrayList<Integer> ids) {
+        wind.getRecipients().addAll(ids);
+        sendImage();
     }
 }

@@ -135,16 +135,6 @@ public class CameraFragment extends Fragment implements CameraHostProvider {
             }
         });
 
-
-        final GestureDetector gestureDectector = new GestureDetector(getActivity(),
-                new SwipeGestureDetector(slidingUpPanel));
-        View.OnTouchListener gestureListener =  new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                return gestureDectector.onTouchEvent(event);
-            }
-        };
-        root.setOnTouchListener(gestureListener);
     }
 
     public void startFaceDetection() {
@@ -221,6 +211,7 @@ public class CameraFragment extends Fragment implements CameraHostProvider {
     @Override
     public void onResume() {
         super.onResume();
+        btnTakePhoto.setEnabled(true);
         cameraView.onResume();
     }
 
@@ -232,6 +223,7 @@ public class CameraFragment extends Fragment implements CameraHostProvider {
 
     public void onTakePhotoClick() {
         btnTakePhoto.setEnabled(false);
+        cameraView.animate();
         cameraView.takePicture(true, true);
     }
 

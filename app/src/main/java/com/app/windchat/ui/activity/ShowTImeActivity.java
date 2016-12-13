@@ -9,6 +9,7 @@ import android.widget.ImageView;
 
 import com.app.windchat.R;
 import com.app.windchat.Snap;
+import com.app.windchat.Utils;
 import com.app.windchat.api.model.User;
 import com.app.windchat.api.model.Wind;
 import com.squareup.picasso.Picasso;
@@ -50,7 +51,7 @@ public class ShowTImeActivity extends AppCompatActivity {
 
     public void displayImage(){
         if (winds.size() == position){
-            onBackPressed();
+            Utils.startMainIntent();
         }
         else
         {

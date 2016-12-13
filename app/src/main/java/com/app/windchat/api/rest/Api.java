@@ -1,5 +1,7 @@
 package com.app.windchat.api.rest;
 
+import android.content.Intent;
+
 import com.app.windchat.Snap;
 import com.app.windchat.api.model.User;
 import com.app.windchat.api.model.Wind;
@@ -7,6 +9,7 @@ import com.app.windchat.api.rest.serializer.ListUserDeserializer;
 import com.app.windchat.api.rest.serializer.ListWindDeserializer;
 import com.app.windchat.api.rest.serializer.UserDeserializer;
 import com.app.windchat.api.rest.serializer.WindDeserializer;
+import com.app.windchat.ui.activity.LoginActivity;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -17,14 +20,19 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.Authenticator;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.Response;
+import okhttp3.Route;
 import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-;
+;import static org.parceler.guava.net.HttpHeaders.AUTHORIZATION;
 
 public class Api {
 
@@ -78,6 +86,41 @@ public class Api {
 
                 Request request = requestBuilder.build();
                 return chain.proceed(request);
+            }
+        });
+
+        httpClient.authenticator(new Authenticator() {
+            @Override
+            public Request authenticate(Route route, Response response) throws IOException {
+                if  (response.code() == 401){
+                    Snap.setCurrent(new User());
+                    Intent i = new Intent(Snap.getInstance(), LoginActivity.class);
+                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_NO_HISTORY);
+                    Snap.getInstance().startActivity(i);
+                    return null;
+                }
+
+                if (response.code() != 200){
+                    return null;
+                }
+                Call<User> call = new Api().getRestClient().refresh();
+                call.enqueue(new Callback<User>() {
+                    @Override
+                    public void onResponse(Call<User> call, retrofit2.Response<User> response) {
+                        if (response.isSuccessful()){
+                            Snap.setCurrent(response.body());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<User> call, Throwable t) {
+
+                    }
+                });
+                final String badic_auth = "Bearer "+ Snap.getCurrent().getToken();
+                return response.request().newBuilder()
+                        .header(AUTHORIZATION, badic_auth)
+                        .build();
             }
         });
 
