@@ -10,12 +10,26 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:scaleType="fitXY"
         android:id="@+id/back"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <TextView
+            android:text="10"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:id="@+id/count"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="18dp"
+            android:layout_marginTop="21dp"
+            android:background="@drawable/squared_red_border"
+            android:textColor="@color/colorAccent"
+            android:textStyle="normal|bold"
+            android:gravity="center" />
     </RelativeLayout>
 
 </FrameLayout>

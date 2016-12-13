@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.app.windchat.R;
 import com.app.windchat.Snap;
@@ -23,8 +24,11 @@ public class ShowTImeActivity extends AppCompatActivity {
     private ArrayList<Wind> winds;
     private User user;
     private ImageView img;
+    private TextView count;
     private Handler handler;
     private Runnable r;
+    private Runnable tmprun;
+    private Handler hand;
     private int position = 0;
 
     @Override
@@ -35,11 +39,13 @@ public class ShowTImeActivity extends AppCompatActivity {
         if (user == null)
             finish();
         img = (ImageView) findViewById(R.id.back);
+        count = (TextView) findViewById(R.id.count);
         img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 position++;
                 handler.removeCallbacks(r);
+                hand.removeCallbacks(tmprun);
                 displayImage();
             }
         });
@@ -55,6 +61,26 @@ public class ShowTImeActivity extends AppCompatActivity {
         }
         else
         {
+            if (getItem().isOpened())
+            {
+                position++;
+                displayImage();
+                return;
+            }
+            hand = new Handler();
+            tmprun = new Runnable() {
+                @Override
+                public void run() {
+                    if (winds.size() != position && getItem().getDuration() > 0){
+                        String tmp = String.format("%02d",getItem().getDuration());
+                        count.setText(tmp);
+                        getItem().setDuration(getItem().getDuration() - 1);
+                        hand.postDelayed(this, 1000);
+                    }
+                }
+            };
+            if (winds.size() != position)
+                hand.postDelayed(tmprun, 1000);
         Picasso.with(this)
                 .load(getItem().getImageUrl())
                 .fit().centerCrop()

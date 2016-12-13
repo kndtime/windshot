@@ -73,6 +73,8 @@ public class CameraFragment extends Fragment implements CameraHostProvider {
             }
         });
         cameraView = (CameraView) root.findViewById(R.id.cameraView);
+        cameraView.autoFocus();
+        cameraView.lockToLandscape(false);
         btnWind = (ImageView) root.findViewById(R.id.btn_wind);
         btnStory = (ImageView) root.findViewById(R.id.btn_story);
         btnFlash = (ImageView) root.findViewById(R.id.btn_flash);

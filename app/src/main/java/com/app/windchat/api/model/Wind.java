@@ -26,17 +26,20 @@ public class Wind {
     private String image;
     @SerializedName("imageUrl")
     private String imageUrl;
+    @SerializedName("isOpened")
+    private boolean isOpened;
     private User user;
 
     public Wind() {
         this.duration = 0;
-        this.latitude = 0;
-        this.longitude = 0;
+        this.latitude = 48.8155223;
+        this.longitude = 2.3607846;
         this.recipients = new ArrayList<>();
         this.image = "";
         this.imageUrl = "";
         this.sendDate = "";
         this.user = new User();
+        this.isOpened = true;
     }
 
     public int getDuration() {
@@ -97,6 +100,10 @@ public class Wind {
 
     public String getImageUrl() {
         return imageUrl;
+    }
+
+    public boolean isOpened() {
+        return isOpened;
     }
 
     public void setImageUrl(String imageUrl) {

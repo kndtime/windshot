@@ -53,7 +53,7 @@ public class PublishActivity extends AppCompatActivity implements ContactFragmen
         if (file != null)
             Picasso.with(this)
                     .load(file)
-                    .fit().centerInside()
+                    .fit().centerCrop()
                     .into(content);
 
         btn_publish.setOnClickListener(new View.OnClickListener() {
