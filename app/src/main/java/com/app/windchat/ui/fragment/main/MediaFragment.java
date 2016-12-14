@@ -1,13 +1,18 @@
 package com.app.windchat.ui.fragment.main;
 
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 
@@ -35,6 +40,11 @@ public class MediaFragment extends Fragment {
 
     private File photoPath;
     private RecyclerView list;
+    private Toolbar toolbar;
+    private SwipeRefreshLayout refreshLayout;
+    private ProgressBar progressBar;
+
+    private WindRecyclerAdapter adapter;
 
     public MediaFragment() {
         // Required empty public constructor
@@ -50,13 +60,40 @@ public class MediaFragment extends Fragment {
         // Inflate the layout for this fragment
         current = Snap.getCurrent();
         root = inflater.inflate(R.layout.fragment_media, container, false);
+        initViews();
+        return root;
+    }
+
+    public void initViews(){
         list = (RecyclerView) root.findViewById(R.id.list);
+        toolbar = (Toolbar) root.findViewById(R.id.toolbar);
+        progressBar = (ProgressBar) root.findViewById(R.id.progressbar);
+        refreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.swipe_refresh_layout);
+
+
+        progressBar.getIndeterminateDrawable()
+                .setColorFilter(Color.RED, PorterDuff.Mode.SRC_IN);
+
+        toolbar.setTitle("My winds");
         RecyclerView.LayoutManager llm = new LinearLayoutManager(getActivity());
         list.setLayoutManager(llm);
         list.setItemAnimator(new DefaultItemAnimator());
-        final ArrayList<User> user = new ArrayList<>();
-        final WindRecyclerAdapter adapter = new WindRecyclerAdapter(getContext(), user);
+        ArrayList<User> user = new ArrayList<>();
+        adapter = new WindRecyclerAdapter(getContext(), user);
         list.setAdapter(adapter);
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                adapter.clearAll();
+                progressBar.setVisibility(View.VISIBLE);
+                sendQuery();
+
+            }
+        });
+        sendQuery();
+    }
+
+    public void sendQuery(){
         Call<JsonElement> call = new Api().getRestClient().get_rawwinds();
         call.enqueue(new Callback<JsonElement>() {
             @Override
@@ -71,6 +108,8 @@ public class MediaFragment extends Fragment {
                         }
                     }
                 }
+                refreshLayout.setRefreshing(false);
+                progressBar.setVisibility(View.GONE);
             }
 
             @Override
@@ -78,31 +117,6 @@ public class MediaFragment extends Fragment {
 
             }
         });
-
-        return root;
     }
-
-    /*private void querry(){
-        Call<ArrayList<User>> call =  new Api().getRestClient().get_winds();
-        call.enqueue(new Callback<ArrayList<User>>() {
-            @Override
-            public void onResponse(Call<ArrayList<User>> call, Response<ArrayList<User>> response) {
-                if (response.isSuccessful()){
-                    winds.clear();
-                    for (User user : response.body()) {
-                        adapter.addAll(user.getWinds());
-                    }
-
-                }else {
-                    Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ArrayList<User>> call, Throwable t) {
-
-            }
-        });
-    }*/
 
 }

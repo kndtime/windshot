@@ -20,7 +20,7 @@ public class User {
     private String username;
     @SerializedName("password")
     private String password;
-    @SerializedName("fisrtName")
+    @SerializedName("firstName")
     private String firstname;
     @SerializedName("lastName")
     private String lastname;

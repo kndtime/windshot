@@ -11,9 +11,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.app.windchat.R;
 import com.app.windchat.Snap;
+import com.app.windchat.Utils;
 import com.app.windchat.api.model.User;
 import com.app.windchat.api.rest.Api;
 import com.app.windchat.ui.activity.AddFriendActivity;
@@ -133,6 +135,7 @@ public class CameraFragment extends Fragment implements CameraHostProvider {
         cameraView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
+                cameraView.autoFocus();
                 return gd.onTouchEvent(event);
             }
         });
