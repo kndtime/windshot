@@ -7,8 +7,8 @@
     android:layout_marginTop="8dp">
 
     <ImageView
-        android:layout_width="24dp"
-        android:layout_height="24dp"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
         app:srcCompat="@drawable/rounded_square_shape"
         android:id="@+id/m_type"
         android:layout_marginLeft="16dp"
@@ -25,12 +25,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/m_name"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+            android:textSize="18sp"/>
 
         <TextView
             android:text="TextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/m_date" />
+            android:id="@+id/m_date"
+            android:textSize="12sp"/>
     </LinearLayout>
 </LinearLayout>

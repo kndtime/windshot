@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.app.windchat.R;
+import com.app.windchat.Utils;
 import com.app.windchat.api.model.RestCode;
 import com.app.windchat.api.model.User;
 import com.app.windchat.api.rest.Api;
@@ -69,6 +70,7 @@ public class FriendListRecyclerAdapter extends RecyclerView.Adapter<FriendListVi
         holder.getUser_uname().setText(usname);
         if (isFriend){
             holder.getUser_delete().setVisibility(View.GONE);
+            holder.getUser_add().setBackground(Utils.getDrawable(R.drawable.send_message_24dp));
         } else {
             if (TYPE.equals("DEFAULT")){
             final JsonObject jsonObject = new JsonObject();

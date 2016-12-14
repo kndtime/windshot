@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.app.windchat.R;
@@ -42,6 +44,13 @@ public class FriendActivity extends AppCompatActivity {
 
     private void initViews(){
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        if (isFriend)
+        toolbar.setTitle("My friends");
+        else
+        toolbar.setTitle("Pending request");
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         list = (RecyclerView) findViewById(R.id.list);
         LinearLayoutManager llm = new LinearLayoutManager(this);
         list.setLayoutManager(llm);
@@ -98,5 +107,21 @@ public class FriendActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_basic, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                super.onBackPressed();
+                return true;
+        }
+        return true;
     }
 }

@@ -22,6 +22,7 @@
     <string name="user_add_friend">Add friend</string>
     <string name="user_added_friend">Added me</string>
     <string name="search">Search an username</string>
+    <string name="user_my_friend">My Friends</string>
 
     <string-array name="img_change">
         <item>Upload an Image</item>

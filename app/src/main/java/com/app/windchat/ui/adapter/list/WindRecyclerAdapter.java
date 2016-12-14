@@ -56,7 +56,8 @@ public class WindRecyclerAdapter extends RecyclerView.Adapter<WindViewHolder> {
                 context.startActivity(i);
             }
         });
-        holder.getM_date().setText(Utils.getTimeSpan(item.getWinds().get(0).getSendDate()));
+        String time = "Received " + Utils.getTimeSpan(item.getWinds().get(0).getSendDate());
+        holder.getM_date().setText(time);
         holder.getM_name().setText(item.getCompleteName());
     }
 

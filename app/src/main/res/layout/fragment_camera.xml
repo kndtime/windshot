@@ -181,20 +181,20 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:baselineAligned="false"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="32dp"
                 android:gravity="center"
                 android:id="@+id/lat_friend">
 
                 <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
                     android:layout_gravity="center"
-                    android:background="@color/colorPrimary"/>
+                    android:background="@drawable/my_friends_24dp"/>
 
                 <TextView
-                    android:text="@string/user_added_friend"
+                    android:text="@string/user_my_friend"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/my_friends"
@@ -207,16 +207,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="32dp"
                 android:id="@+id/lat_addedme">
 
                 <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
                     android:layout_gravity="center"
-                    android:background="@color/colorPrimary"/>
+                    android:background="@drawable/my_friend_24dp"/>
 
                 <TextView
                     android:text="@string/user_added_friend"
@@ -232,16 +232,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="32dp"
                 android:gravity="center"
                 android:id="@+id/lat_addfriend">
 
                 <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
-                    android:background="@color/colorPrimary"/>
+                    android:background="@drawable/add_friend_24dp"/>
                 <TextView
                     android:text="@string/user_add_friend"
                     android:layout_width="wrap_content"

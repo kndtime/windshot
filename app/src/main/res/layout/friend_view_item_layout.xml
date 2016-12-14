@@ -19,19 +19,18 @@
             android:src="@mipmap/ic_launcher"
             android:gravity="center"
             android:layout_gravity="center"
-            app:civ_border_color="#EEEEEE"
-            app:civ_border_width="4dp"
-            app:civ_shadow="true"
-            app:civ_shadow_radius="10"
-            app:civ_shadow_color="#8BC34A"
+            app:civ_border_color="@color/colorPrimary"
+            app:civ_border_width="2dp"
             android:scaleType="centerCrop"
-            android:layout_width="55dp"
-            android:layout_height="55dp" />
+            android:layout_width="45dp"
+            android:layout_height="45dp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
             android:layout_weight="1"
             android:layout_gravity="center">
 
@@ -40,13 +39,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/user_name"
-                android:textSize="24sp"/>
+                android:textSize="18sp"/>
 
             <TextView
                 android:text="TextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/user_uname" />
+                android:id="@+id/user_uname"
+                android:textSize="12sp"/>
 
         </LinearLayout>
 

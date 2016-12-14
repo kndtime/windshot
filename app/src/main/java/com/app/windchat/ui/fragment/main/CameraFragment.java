@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,7 +44,8 @@ public class CameraFragment extends Fragment implements CameraHostProvider {
     private CircularImageView sl_img;
     private Button btnTakePhoto;
     private ImageView btnFlash, btnProfile, btnSwap, btnWind, btnStory;
-    private TextView sl_name, sl_username, sl_add_friend, sl_added_me;
+    private TextView sl_name, sl_username;
+    private LinearLayout sl_myfriend, sl_add_friend, sl_added_me;
     private SlidingUpPanelLayout slidingUpPanel;
     private User current;
 
@@ -85,8 +87,9 @@ public class CameraFragment extends Fragment implements CameraHostProvider {
         sl_img = (CircularImageView) root.findViewById(R.id.img);
         sl_name = (TextView) root.findViewById(R.id.name);
         sl_username = (TextView) root.findViewById(R.id.username);
-        sl_add_friend = (TextView) root.findViewById(R.id.add_friend);
-        sl_added_me = (TextView) root.findViewById(R.id.added_me);
+        sl_myfriend = (LinearLayout) root.findViewById(R.id.lat_friend);
+        sl_add_friend = (LinearLayout) root.findViewById(R.id.lat_addfriend);
+        sl_added_me = (LinearLayout) root.findViewById(R.id.lat_addedme);
         slidingUpPanel = (SlidingUpPanelLayout) root.findViewById(R.id.sliding_layout);
 
         fetchUser();
@@ -166,9 +169,18 @@ public class CameraFragment extends Fragment implements CameraHostProvider {
                 .fit().centerCrop()
                 .into(sl_img);
         sl_name.setText(current.getCompleteName());
-        sl_username.setText(current.getUsername());
+        String username = "@" + current.getUsername();
+        sl_username.setText(username);
 
         sl_img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getActivity(), FriendActivity.class);
+                getActivity().startActivity(i);
+            }
+        });
+
+        sl_myfriend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getActivity(), FriendActivity.class);
