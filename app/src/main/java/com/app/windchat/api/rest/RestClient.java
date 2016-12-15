@@ -60,6 +60,9 @@ public interface RestClient {
     @POST("/api/wind")
     Call<RestCode> wind_post(@Body Wind wind);
 
+    @PUT("/api/wind/{windId}/open")
+    Call<RestCode> viewing(@Path("windId") int id);
+
     @GET("/api/friend/list")
     Call<ArrayList<User>> get_friends();
 

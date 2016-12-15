@@ -16,7 +16,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:id="@+id/root">
 
         <ImageView
             android:layout_width="32dp"
@@ -64,15 +65,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
-            android:text="Name"
             android:ems="10"
-            android:layout_below="@+id/btn_cancel"
-            android:layout_alignParentStart="true"
             android:id="@+id/text"
-            android:background="@color/picker_default_selected_text_color"
+            android:background="#b0000000"
             android:minHeight="40dp"
             android:textAlignment="center"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            android:layout_below="@+id/btn_cancel"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="200dp"
+            android:visibility="gone" />
     </RelativeLayout>
 
 </FrameLayout>

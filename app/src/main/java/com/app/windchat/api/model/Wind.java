@@ -12,6 +12,8 @@ import java.util.ArrayList;
 @Parcel
 public class Wind {
 
+    @SerializedName("id")
+    private int id;
     @SerializedName("duration")
     private int duration;
     @SerializedName("latitude")
@@ -31,6 +33,7 @@ public class Wind {
     private User user;
 
     public Wind() {
+        this.id = 0;
         this.duration = 0;
         this.latitude = 48.8155223;
         this.longitude = 2.3607846;
@@ -40,6 +43,14 @@ public class Wind {
         this.sendDate = "";
         this.user = new User();
         this.isOpened = true;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getDuration() {

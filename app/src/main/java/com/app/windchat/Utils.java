@@ -124,7 +124,7 @@ public class Utils {
         return Base64.encodeToString(b, Base64.DEFAULT);
     }
 
-    public static Bitmap combineImages(Bitmap background, Bitmap foreground, Activity activity) {
+    public static Bitmap combineImages(Bitmap background, Bitmap foreground, Activity activity, int arr[]) {
 
         int width = 0, height = 0;
         Bitmap cs;
@@ -136,7 +136,7 @@ public class Utils {
         Canvas comboImage = new Canvas(cs);
         background = Bitmap.createScaledBitmap(background, width, height, true);
         comboImage.drawBitmap(background, 0, 0, null);
-        comboImage.drawBitmap(foreground, new Matrix(), null);
+        comboImage.drawBitmap(foreground, arr[0], arr[1], null);
 
         return cs;
     }

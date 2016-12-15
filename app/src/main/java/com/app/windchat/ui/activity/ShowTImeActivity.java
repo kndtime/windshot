@@ -1,6 +1,7 @@
 package com.app.windchat.ui.activity;
 
 import android.content.Intent;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,13 +12,19 @@ import android.widget.TextView;
 import com.app.windchat.R;
 import com.app.windchat.Snap;
 import com.app.windchat.Utils;
+import com.app.windchat.api.model.RestCode;
 import com.app.windchat.api.model.User;
 import com.app.windchat.api.model.Wind;
+import com.app.windchat.api.rest.Api;
 import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
 
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ShowTImeActivity extends AppCompatActivity {
 
@@ -67,20 +74,35 @@ public class ShowTImeActivity extends AppCompatActivity {
                 displayImage();
                 return;
             }
-            hand = new Handler();
-            tmprun = new Runnable() {
+            Call<RestCode> call = new Api().getRestClient().viewing(getItem().getId());
+            call.enqueue(new Callback<RestCode>() {
                 @Override
-                public void run() {
-                    if (winds.size() != position && getItem().getDuration() > 0){
-                        String tmp = String.format("%02d",getItem().getDuration());
-                        count.setText(tmp);
-                        getItem().setDuration(getItem().getDuration() - 1);
-                        hand.postDelayed(this, 1000);
+                public void onResponse(Call<RestCode> call, Response<RestCode> response) {
+                    if (response.isSuccessful()){
+
                     }
                 }
-            };
-            if (winds.size() != position)
-                hand.postDelayed(tmprun, 1000);
+
+                @Override
+                public void onFailure(Call<RestCode> call, Throwable t) {
+
+                }
+            });
+
+            new CountDownTimer((getItem().getDuration() + 1) * 1000, 1000) {
+
+                public void onTick(long millisUntilFinished) {
+                    String tmp = String.format("%02d", millisUntilFinished / 1000);
+                    count.setText(tmp);
+                }
+
+                public void onFinish() {
+                    String tmp = String.format("%02d", 0);
+                    count.setText(tmp);
+                }
+
+            }.start();
+
         Picasso.with(this)
                 .load(getItem().getImageUrl())
                 .fit().centerCrop()

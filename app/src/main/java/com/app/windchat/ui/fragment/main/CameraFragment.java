@@ -79,7 +79,6 @@ public class CameraFragment extends Fragment implements CameraHostProvider {
             }
         });
         cameraView = (CameraView) root.findViewById(R.id.cameraView);
-        cameraView.autoFocus();
         cameraView.lockToLandscape(false);
         btnWind = (ImageView) root.findViewById(R.id.btn_wind);
         btnStory = (ImageView) root.findViewById(R.id.btn_story);
@@ -141,7 +140,7 @@ public class CameraFragment extends Fragment implements CameraHostProvider {
         cameraView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                cameraView.autoFocus();
+                //cameraView.autoFocus();
                 return gd.onTouchEvent(event);
             }
         });

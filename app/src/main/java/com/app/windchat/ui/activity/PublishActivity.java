@@ -7,9 +7,12 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.app.windchat.R;
@@ -28,13 +31,18 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PublishActivity extends AppCompatActivity implements ContactFragment.onGetIdsListener {
+public class PublishActivity extends AppCompatActivity implements ContactFragment.onGetIdsListener,
+View.OnTouchListener{
 
     File file;
     private ImageView content;
     private ImageView btn_publish, btn_time, btn_who, btn_cancel;
     private EditText btn_text;
     private Wind wind;
+
+    private ViewGroup mRrootLayout;
+    private int _xDelta;
+    private int _yDelta;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +63,10 @@ public class PublishActivity extends AppCompatActivity implements ContactFragmen
         btn_who = (ImageView) findViewById(R.id.btn_who);
         btn_text = (EditText) findViewById(R.id.text);
         content = (ImageView) findViewById(R.id.content);
+
+        mRrootLayout = (ViewGroup) findViewById(R.id.root);
+
+
         if (file != null)
             Picasso.with(this)
                     .load(file)
@@ -99,6 +111,7 @@ public class PublishActivity extends AppCompatActivity implements ContactFragmen
         });
 
         btn_text.setDrawingCacheEnabled(true);
+        //btn_text.setOnTouchListener(this);
     }
 
     public void initFilters() {
@@ -106,8 +119,10 @@ public class PublishActivity extends AppCompatActivity implements ContactFragmen
             sendImage();
             return;
         }
+        int arr[] = new int[2];
+        btn_text.getLocationOnScreen(arr);
 
-        Bitmap res = Utils.combineImages(Snap.getCurImg(), btn_text.getDrawingCache(), this);
+        Bitmap res = Utils.combineImages(Snap.getCurImg(), btn_text.getDrawingCache(), this, arr);
         if (res != null) {
             wind.setImage(Utils.imgTo64(res));
         }
@@ -139,4 +154,35 @@ public class PublishActivity extends AppCompatActivity implements ContactFragmen
         wind.getRecipients().addAll(ids);
         initFilters();
     }
+
+    @Override
+    public boolean onTouch(View view, MotionEvent event) {
+        final int X = (int) event.getRawX();
+        final int Y = (int) event.getRawY();
+        switch (event.getAction() & MotionEvent.ACTION_MASK) {
+            case MotionEvent.ACTION_DOWN:
+                RelativeLayout.LayoutParams lParams = (RelativeLayout.LayoutParams) view.getLayoutParams();
+                _xDelta = X - lParams.leftMargin;
+                _yDelta = Y - lParams.topMargin;
+                break;
+            case MotionEvent.ACTION_UP:
+                break;
+            case MotionEvent.ACTION_POINTER_DOWN:
+                break;
+            case MotionEvent.ACTION_POINTER_UP:
+                break;
+            case MotionEvent.ACTION_MOVE:
+                RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) view
+                        .getLayoutParams();
+                layoutParams.leftMargin = X - _xDelta;
+                layoutParams.topMargin = Y - _yDelta;
+                layoutParams.rightMargin = -250;
+                layoutParams.bottomMargin = -250;
+                view.setLayoutParams(layoutParams);
+                break;
+        }
+        mRrootLayout.invalidate();
+        return true;
+    }
+
 }
