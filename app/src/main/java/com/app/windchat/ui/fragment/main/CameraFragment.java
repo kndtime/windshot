@@ -22,6 +22,7 @@ import com.app.windchat.api.rest.Api;
 import com.app.windchat.ui.activity.AddFriendActivity;
 import com.app.windchat.ui.activity.FriendActivity;
 import com.app.windchat.ui.activity.MainActivity;
+import com.app.windchat.ui.activity.SettingsActivity;
 import com.app.windchat.ui.view.SwipeGestureDetector;
 import com.commonsware.cwac.camera.CameraHost;
 import com.commonsware.cwac.camera.CameraHostProvider;
@@ -46,6 +47,7 @@ public class CameraFragment extends Fragment implements CameraHostProvider {
     private ImageView btnFlash, btnProfile, btnSwap, btnWind, btnStory;
     private TextView sl_name, sl_username;
     private LinearLayout sl_myfriend, sl_add_friend, sl_added_me;
+    private ImageView btn_settings;
     private SlidingUpPanelLayout slidingUpPanel;
     private User current;
 
@@ -84,6 +86,7 @@ public class CameraFragment extends Fragment implements CameraHostProvider {
         btnFlash = (ImageView) root.findViewById(R.id.btn_flash);
         btnProfile = (ImageView) root.findViewById(R.id.btn_profile);
         btnSwap = (ImageView) root.findViewById(R.id.btn_swap);
+        btn_settings = (ImageView) root.findViewById(R.id.settings);
         sl_img = (CircularImageView) root.findViewById(R.id.img);
         sl_name = (TextView) root.findViewById(R.id.name);
         sl_username = (TextView) root.findViewById(R.id.username);
@@ -202,6 +205,14 @@ public class CameraFragment extends Fragment implements CameraHostProvider {
             public void onClick(View view) {
                 Intent i = new Intent(getActivity(), AddFriendActivity.class);
                 i.putExtra("friend", false);
+                getActivity().startActivity(i);
+            }
+        });
+
+        btn_settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getActivity(), SettingsActivity.class);
                 getActivity().startActivity(i);
             }
         });

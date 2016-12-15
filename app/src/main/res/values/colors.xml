@@ -6,4 +6,7 @@
     <color name="colorAccent">#ffffff</color>
     <color name="windowBackground">#f5f8fa</color>
     <color name="white">#ffffff</color>
+    <color name="red">#ea5e5b</color>
+    <color name="w_red">#ff5252</color>
+    <color name="secondary_item">#bdbdbd</color>
 </resources>

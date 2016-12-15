@@ -42,6 +42,9 @@ public interface RestClient {
     @GET("/api/user/profile")
     Call<User> get_profile();
 
+    @PUT("/api/user/profile")
+    Call<User> update(@Body JsonObject object);
+
     @GET("/api/user/search/{username}")
     Call<ArrayList<User>> search(@Path("username") String username);
 

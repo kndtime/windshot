@@ -23,6 +23,13 @@
     <string name="user_added_friend">Added me</string>
     <string name="search">Search an username</string>
     <string name="user_my_friend">My Friends</string>
+    <string name="change_profile_picture">Change your profile picture</string>
+    <string name="me">Me</string>
+    <string name="firstname">firstname</string>
+    <string name="lastname">Lastname</string>
+    <string name="edit_name">Edit your name</string>
+    <string name="save_profile">Update profile</string>
+    <string name="cancel">Cancel</string>
 
     <string-array name="img_change">
         <item>Upload an Image</item>

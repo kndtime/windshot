@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:id="@+id/ic_back"
+tools:context="com.app.windchat.ui.activity.SettingsActivity">
+
+    <android.support.design.widget.CoordinatorLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        tools:context="com.app.workalize.ui.activities.ProfileActivity"
+        android:id="@+id/coor_container">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true">
+
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:id="@+id/toolbar_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fitsSystemWindows="true"
+                app:contentScrim="?attr/colorPrimary"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:background="@color/colorPrimary"
+                    android:scaleType="fitXY"
+                    android:layout_height="140dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingBottom="30dp"
+                    android:layout_gravity="center|top"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:gravity="center">
+
+                    <com.mikhaellopez.circularimageview.CircularImageView
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:id="@+id/img"
+                        android:src="@mipmap/ic_launcher"
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        app:civ_border_color="#EEEEEE"
+                        app:civ_border_width="4dp"
+                        android:scaleType="centerCrop" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:textSize="35sp"
+                        android:id="@+id/user_name"
+                        android:text="@string/me" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textColor="@color/colorAccent"
+                        android:textAlignment="center"
+                        android:id="@+id/user_title"
+                        tools:targetApi="jelly_bean_mr1"
+                        android:textSize="20sp"
+                        android:text="@string/me" />
+
+                </LinearLayout>
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                    app:layout_collapseMode="pin">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:id="@+id/ic_profile"
+                        android:alpha="0">
+
+                        <com.mikhaellopez.circularimageview.CircularImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:src="@mipmap/ic_launcher"
+                            android:id="@+id/bar_img" />
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="4dp"
+                            android:text="Me"
+                            android:textColor="@color/white"
+                            android:textAppearance="@android:style/TextAppearance.DeviceDefault.Widget.ActionBar.Title"
+                            android:id="@+id/bar_text" />
+
+                    </LinearLayout>
+
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_marginRight="16dp"
+                        android:alpha="0"
+                        android:id="@+id/ic_settings">
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/send_message_24dp"
+                            android:id="@+id/bar_mess"
+                            android:visibility="visible" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/bar_edit"
+                            android:textSize="12dp"
+                            android:visibility="visible" />
+                    </FrameLayout>
+
+
+
+                </android.support.v7.widget.Toolbar>
+
+            </android.support.design.widget.CollapsingToolbarLayout>
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/scroll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:background="@color/windowBackground">
+
+            <include
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                layout="@layout/edit_profile_layout" />
+
+        </android.support.v4.widget.NestedScrollView>
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="?attr/actionBarSize"
+            android:text=""
+            android:textSize="18sp"
+            android:layout_marginLeft="62dp"
+            android:layout_marginTop="-80dp"
+            android:gravity="center_vertical"
+            android:textColor="@android:color/white"
+            android:alpha="0"
+            app:layout_behavior="com.zoonref.SimpleViewBehavior"
+            app:dependsOn="@+id/appbar"
+            app:dependType="y"
+            app:dependTargetY="-150dp"
+            app:targetY="8dp"
+            app:targetX="80dp"
+            app:targetAlpha="0"/>
+
+            <android.support.design.widget.FloatingActionButton
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                app:layout_anchor="@id/appbar"
+                app:layout_anchorGravity="bottom|right|end"
+                android:src="@drawable/ic_save_white_24dp"
+                android:layout_margin="16dp"
+                android:id="@+id/fab" />
+
+
+    </android.support.design.widget.CoordinatorLayout>
+</FrameLayout>

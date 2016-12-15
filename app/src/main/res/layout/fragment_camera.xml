@@ -257,12 +257,13 @@
         <ImageView
             android:layout_width="32dp"
             android:layout_height="32dp"
-            app:srcCompat="@color/md_edittext_error"
+            android:src="@drawable/ic_settings_yellow_24dp"
+            android:background="@drawable/ripple_effect"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="30dp"
             android:layout_marginTop="27dp"
-            android:id="@+id/imageView2" />
+            android:id="@+id/settings" />
     </RelativeLayout>
 
 

@@ -53,6 +53,8 @@ public class Snap extends Application{
     }
 
     public static void setCurrent(User user) {
+        if (!current.getToken().isEmpty())
+            user.setToken(current.getToken());
         current = user;
         Gson gson = new Gson();
         String usar = gson.toJson(user);
