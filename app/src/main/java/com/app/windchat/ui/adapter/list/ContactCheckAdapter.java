@@ -27,6 +27,7 @@ public class ContactCheckAdapter extends BaseAdapter {
     private ArrayList<User> users;
     private LayoutInflater inflater;
     private ArrayList<Integer> ids;
+    private ArrayList<User> selected;
     private onIdsChangedListener listener;
 
     public ContactCheckAdapter(Context context, ArrayList<User> users, onIdsChangedListener listener) {
@@ -34,6 +35,7 @@ public class ContactCheckAdapter extends BaseAdapter {
         this.users = users;
         this.inflater = LayoutInflater.from(context);
         this.ids = new ArrayList<>();
+        this.selected = new ArrayList<>();
         this.listener = listener;
     }
 
@@ -66,11 +68,11 @@ public class ContactCheckAdapter extends BaseAdapter {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (!b){
-                    ids.remove(Integer.valueOf(getItem(i).getId()));
+                    selected.remove((getItem(i)));
                 }else{
-                    ids.add(getItem(i).getId());
+                    selected.add(getItem(i));
                 }
-                listener.onIdsChanged(ids);
+                listener.onIdsChanged(getIds(), getNames());
             }
         });
         /*if (box.isChecked()){
@@ -92,11 +94,26 @@ public class ContactCheckAdapter extends BaseAdapter {
         }
     }
 
-    public ArrayList<Integer> getIds() {
+    public String getNames(){
+        String names = "";
+        for (User user: selected
+                ) {
+           names = names + user.getUsername() +", ";
+        }
+        names = names + "...";
+        return names;
+    }
+
+    public ArrayList<Integer> getIds(){
+        ArrayList<Integer> ids=  new ArrayList<>();
+        for (User user: selected
+             ) {
+            ids.add(user.getId());
+        }
         return ids;
     }
 
     public interface onIdsChangedListener{
-        void onIdsChanged(ArrayList<Integer> ids);
+        void onIdsChanged(ArrayList<Integer> ids, String names);
     }
 }

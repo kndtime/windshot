@@ -117,14 +117,14 @@ public class ContactFragment extends Fragment implements ContactCheckAdapter.onI
     }
 
     @Override
-    public void onIdsChanged(ArrayList<Integer> ids) {
+    public void onIdsChanged(ArrayList<Integer> ids, String names) {
         if (ids.size() == 0){
             bottom_bar.setVisibility(View.GONE);
             return;
         }
         bottom_bar.setVisibility(View.VISIBLE);
         String contact = String.valueOf(ids.size()) + " conctacts";
-        nb_contact.setText(contact);
+        nb_contact.setText(names);
     }
 
     /**

@@ -13,11 +13,10 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
-        android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -34,18 +33,19 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:id="@+id/bottom_bar"
-            android:layout_weight="1"
             android:visibility="gone"
             android:layout_gravity="bottom"
             android:background="@color/colorPrimary">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 android:layout_gravity="center"
                 android:text="1 person"
                 android:layout_weight="2"
+                android:textColor="@color/white"
+                android:textStyle="bold"
                 android:id="@+id/nb_contact" />
             <ImageView
                 android:layout_width="32dp"
@@ -57,6 +57,6 @@
 
         </LinearLayout>
 
-    </LinearLayout>
+    </FrameLayout>
 
 </LinearLayout>
