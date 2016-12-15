@@ -34,7 +34,7 @@ public class FriendListRecyclerAdapter extends RecyclerView.Adapter<FriendListVi
     private boolean isFriend;
     private String TYPE = "DEFAULT";
 
-    public FriendListRecyclerAdapter(Context context, ArrayList<User> mItems, boolean isFriend ) {
+    public FriendListRecyclerAdapter(Context context, ArrayList<User> mItems, boolean isFriend) {
         this.mItems = mItems;
         this.context = context;
         this.isFriend = isFriend;
@@ -42,7 +42,7 @@ public class FriendListRecyclerAdapter extends RecyclerView.Adapter<FriendListVi
 
 
     public FriendListRecyclerAdapter(Context context, ArrayList<User> mItems, boolean isFriend,
-                                     String TYPE ) {
+                                     String TYPE) {
         this.mItems = mItems;
         this.context = context;
         this.isFriend = isFriend;
@@ -60,66 +60,72 @@ public class FriendListRecyclerAdapter extends RecyclerView.Adapter<FriendListVi
     public void onBindViewHolder(final FriendListViewHolder holder, int position) {
         final User user = getItem(holder.getAdapterPosition());
         if (!user.getPictureUrl().isEmpty())
-        Picasso.with(context)
-                .load(user.getPictureUrl())
-                .error(R.mipmap.ic_launcher)
-                .fit().centerCrop()
-                .into(holder.getUser_img());
+            Picasso.with(context)
+                    .load(user.getPictureUrl())
+                    .error(R.mipmap.ic_launcher)
+                    .fit().centerCrop()
+                    .into(holder.getUser_img());
         holder.getUser_name().setText(user.getCompleteName());
         String usname = "@" + user.getUsername();
         holder.getUser_uname().setText(usname);
-        if (isFriend){
+        if (isFriend) {
             holder.getUser_delete().setVisibility(View.GONE);
             holder.getUser_add().setBackground(Utils.getDrawable(R.drawable.send_message_24dp));
         } else {
-            if (TYPE.equals("DEFAULT")){
-            final JsonObject jsonObject = new JsonObject();
-            holder.getUser_add().setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    jsonObject.addProperty("isAccepted", true);
-                    Call<RestCode> call = new Api().getRestClient().accept(user.getId(), jsonObject);
-                    call.enqueue(new Callback<RestCode>() {
-                        @Override
-                        public void onResponse(Call<RestCode> call, Response<RestCode> response) {
-                            if (response.isSuccessful()){
-                                notifyItemRemoved(holder.getAdapterPosition());
-                                mItems.remove(user);
-                                Toast.makeText(context, "User added", Toast.LENGTH_SHORT).show();
+            if (TYPE.equals("DEFAULT")) {
+                final JsonObject jsonObject = new JsonObject();
+                holder.getUser_add().setImageResource(R.drawable.ic_add_white_24dp);
+                holder.getUser_delete().setBackground(Utils.getDrawable(R.drawable.rounded_square_shape));
+                holder.getUser_add().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        jsonObject.addProperty("isAccepted", true);
+                        Call<RestCode> call = new Api().getRestClient().accept(user.getId(), jsonObject);
+                        call.enqueue(new Callback<RestCode>() {
+                            @Override
+                            public void onResponse(Call<RestCode> call, Response<RestCode> response) {
+                                if (response.isSuccessful()) {
+                                    notifyItemRemoved(holder.getAdapterPosition());
+                                    mItems.remove(user);
+                                    Toast.makeText(context, "User added", Toast.LENGTH_SHORT).show();
+                                }
                             }
-                        }
 
-                        @Override
-                        public void onFailure(Call<RestCode> call, Throwable t) {
+                            @Override
+                            public void onFailure(Call<RestCode> call, Throwable t) {
 
-                        }
-                    });
-                }
-            });
-
-            holder.getUser_delete().setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    jsonObject.addProperty("isAccepted", false);
-                    Call<RestCode> call = new Api().getRestClient().accept(user.getId(), jsonObject);
-                    call.enqueue(new Callback<RestCode>() {
-                        @Override
-                        public void onResponse(Call<RestCode> call, Response<RestCode> response) {
-                            if (response.isSuccessful()){
-                                notifyItemRemoved(holder.getAdapterPosition());
-                                mItems.remove(user);
-                                Toast.makeText(context, "User deleted", Toast.LENGTH_SHORT).show();
                             }
-                        }
+                        });
+                    }
+                });
 
-                        @Override
-                        public void onFailure(Call<RestCode> call, Throwable t) {
+                holder.getUser_delete().setImageResource(R.drawable.ic_clear_white_24dp);
+                holder.getUser_delete().setBackground(Utils.getDrawable(R.drawable.rounded_square_shape));
+                holder.getUser_delete().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        jsonObject.addProperty("isAccepted", false);
+                        Call<RestCode> call = new Api().getRestClient().accept(user.getId(), jsonObject);
+                        call.enqueue(new Callback<RestCode>() {
+                            @Override
+                            public void onResponse(Call<RestCode> call, Response<RestCode> response) {
+                                if (response.isSuccessful()) {
+                                    notifyItemRemoved(holder.getAdapterPosition());
+                                    mItems.remove(user);
+                                    Toast.makeText(context, "User deleted", Toast.LENGTH_SHORT).show();
+                                }
+                            }
 
-                        }
-                    });
-                }
-            });
-            }else{
+                            @Override
+                            public void onFailure(Call<RestCode> call, Throwable t) {
+
+                            }
+                        });
+                    }
+                });
+            } else {
+                holder.getUser_add().setImageResource(R.drawable.ic_add_white_24dp);
+                holder.getUser_delete().setBackground(Utils.getDrawable(R.drawable.rounded_square_shape));
                 holder.getUser_add().setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -129,11 +135,11 @@ public class FriendListRecyclerAdapter extends RecyclerView.Adapter<FriendListVi
                         code.enqueue(new Callback<RestCode>() {
                             @Override
                             public void onResponse(Call<RestCode> call, Response<RestCode> response) {
-                                if (response.isSuccessful()){
+                                if (response.isSuccessful()) {
                                     notifyItemRemoved(holder.getAdapterPosition());
                                     mItems.remove(user);
                                     Toast.makeText(context, "User added", Toast.LENGTH_SHORT).show();
-                                } else{
+                                } else {
                                     Toast.makeText(context, "Error or already friend", Toast.LENGTH_SHORT).show();
                                 }
                             }
@@ -156,11 +162,13 @@ public class FriendListRecyclerAdapter extends RecyclerView.Adapter<FriendListVi
         return mItems.size();
     }
 
-    private User getItem(int position){ return mItems.get(position);}
+    private User getItem(int position) {
+        return mItems.get(position);
+    }
 
     public void add(User item) {
         mItems.add(item);
-        notifyItemInserted(mItems.size()-1);
+        notifyItemInserted(mItems.size() - 1);
     }
 
     public void addAll(List<User> videos) {
@@ -169,7 +177,7 @@ public class FriendListRecyclerAdapter extends RecyclerView.Adapter<FriendListVi
         }
     }
 
-    public void clearAll(){
+    public void clearAll() {
         mItems.clear();
         notifyDataSetChanged();
     }
