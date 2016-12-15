@@ -236,6 +236,8 @@ public class CameraFragment extends Fragment implements CameraHostProvider {
         });
     }
 
+
+
     @Override
     public void onResume() {
         super.onResume();

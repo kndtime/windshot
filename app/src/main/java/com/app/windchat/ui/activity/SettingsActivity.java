@@ -11,6 +11,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -25,6 +27,7 @@ import com.app.windchat.Snap;
 import com.app.windchat.Utils;
 import com.app.windchat.api.model.User;
 import com.app.windchat.api.rest.Api;
+import com.github.florent37.singledateandtimepicker.dialog.SingleDateAndTimePickerDialog;
 import com.google.gson.JsonObject;
 import com.mikhaellopez.circularimageview.CircularImageView;
 import com.squareup.picasso.Picasso;
@@ -33,6 +36,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -57,17 +63,23 @@ public class SettingsActivity extends AppCompatActivity {
     private LinearLayout name_container;
     private TextView name;
 
+    private LinearLayout birth_container;
+    private TextView birthday;
+
     private User current;
 
     private final int RESULT_LOAD_IMAGE = 14;
     private final int REQUEST_TAKE_PHOTO = 24;
     private static File file;
 
+    SimpleDateFormat simpleDateFormat;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         current = Snap.getCurrent();
+        simpleDateFormat = new SimpleDateFormat("EEE d MMM", Locale.getDefault());
         initViews();
         initProfile(current);
     }
@@ -88,6 +100,10 @@ public class SettingsActivity extends AppCompatActivity {
 
         name_container = (LinearLayout) findViewById(R.id.name_container);
         name = (TextView) findViewById(R.id.name);
+
+        birth_container = (LinearLayout) findViewById(R.id.birth_container);
+        birthday = (TextView) findViewById(R.id.birthday);
+
         initClick(this);
     }
 
@@ -149,6 +165,23 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
+        birth_container.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new SingleDateAndTimePickerDialog.Builder(context)
+                        .bottomSheet()
+                        .curved()
+                        .title("Your birthday")
+                        .listener(new SingleDateAndTimePickerDialog.Listener() {
+                            @Override
+                            public void onDateSelected(Date date) {
+                                birthday.setText(simpleDateFormat.format(date));
+                            }
+                        })
+                        .display();
+            }
+        });
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -170,6 +203,9 @@ public class SettingsActivity extends AppCompatActivity {
         email.setText(user.getEmail());
         bar_text.setText(user.getCompleteName());
         name.setText(user.getCompleteName());
+        String date_after =
+                Utils.formateDateFromstring(Utils.dateFormat, "dd, MMM yyyy", user.getBirthday());
+        birthday.setText(date_after);
         Picasso.with(this).load(user.getPictureUrl()).fit().centerCrop().into(bar_img);
         Picasso.with(this).load(user.getPictureUrl()).fit().centerCrop().into(img);
     }
@@ -204,6 +240,22 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_basic, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                super.onBackPressed();
+                return true;
+        }
+        return true;
     }
 
     @Override

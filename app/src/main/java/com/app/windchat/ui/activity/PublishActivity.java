@@ -30,7 +30,7 @@ public class PublishActivity extends AppCompatActivity implements ContactFragmen
 
     File file;
     private ImageView content;
-    private ImageView btn_publish, btn_time, btn_who;
+    private ImageView btn_publish, btn_time, btn_who, btn_cancel;
     private Wind wind;
 
     @Override
@@ -46,6 +46,7 @@ public class PublishActivity extends AppCompatActivity implements ContactFragmen
     }
 
     private void initViews(){
+        btn_cancel = (ImageView) findViewById(R.id.btn_cancel);
         btn_publish = (ImageView) findViewById(R.id.btn_publish);
         btn_time = (ImageView) findViewById(R.id.btn_time);
         btn_who = (ImageView) findViewById(R.id.btn_who);
@@ -65,6 +66,13 @@ public class PublishActivity extends AppCompatActivity implements ContactFragmen
                 fragmentTransaction.replace(R.id.activity_publish, contactFragment);
                 fragmentTransaction.addToBackStack("contact_fragment");
                 fragmentTransaction.commit();
+            }
+        });
+
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
             }
         });
 

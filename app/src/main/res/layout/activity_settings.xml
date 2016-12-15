@@ -97,7 +97,8 @@ tools:context="com.app.windchat.ui.activity.SettingsActivity">
                             android:layout_width="32dp"
                             android:layout_height="32dp"
                             android:src="@mipmap/ic_launcher"
-                            android:id="@+id/bar_img" />
+                            android:id="@+id/bar_img"
+                            android:visibility="visible" />
 
                         <android.support.v7.widget.AppCompatTextView
                             android:layout_width="match_parent"
