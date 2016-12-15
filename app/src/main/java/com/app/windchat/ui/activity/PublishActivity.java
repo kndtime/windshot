@@ -8,10 +8,12 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.app.windchat.R;
+import com.app.windchat.Snap;
 import com.app.windchat.Utils;
 import com.app.windchat.api.model.RestCode;
 import com.app.windchat.api.model.Wind;
@@ -31,6 +33,7 @@ public class PublishActivity extends AppCompatActivity implements ContactFragmen
     File file;
     private ImageView content;
     private ImageView btn_publish, btn_time, btn_who, btn_cancel;
+    private EditText btn_text;
     private Wind wind;
 
     @Override
@@ -45,11 +48,12 @@ public class PublishActivity extends AppCompatActivity implements ContactFragmen
         initViews();
     }
 
-    private void initViews(){
+    private void initViews() {
         btn_cancel = (ImageView) findViewById(R.id.btn_cancel);
         btn_publish = (ImageView) findViewById(R.id.btn_publish);
         btn_time = (ImageView) findViewById(R.id.btn_time);
         btn_who = (ImageView) findViewById(R.id.btn_who);
+        btn_text = (EditText) findViewById(R.id.text);
         content = (ImageView) findViewById(R.id.content);
         if (file != null)
             Picasso.with(this)
@@ -82,14 +86,40 @@ public class PublishActivity extends AppCompatActivity implements ContactFragmen
 
             }
         });
+
+        content.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (btn_text.getVisibility() == View.GONE) {
+                    btn_text.setVisibility(View.VISIBLE);
+                } else {
+                    btn_text.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        btn_text.setDrawingCacheEnabled(true);
     }
 
-    public void sendImage(){
+    public void initFilters() {
+        if (btn_text.getText().toString().isEmpty() || Snap.getCurImg() == null) {
+            sendImage();
+            return;
+        }
+
+        Bitmap res = Utils.combineImages(Snap.getCurImg(), btn_text.getDrawingCache(), this);
+        if (res != null) {
+            wind.setImage(Utils.imgTo64(res));
+        }
+        sendImage();
+    }
+
+    public void sendImage() {
         Call<RestCode> call = new Api().getRestClient().wind_post(wind);
         call.enqueue(new Callback<RestCode>() {
             @Override
             public void onResponse(Call<RestCode> call, Response<RestCode> response) {
-                if (response.isSuccessful()){
+                if (response.isSuccessful()) {
                     Utils.startMainIntent();
                     Toast.makeText(PublishActivity.this, "Success", Toast.LENGTH_SHORT).show();
                 } else {
@@ -107,6 +137,6 @@ public class PublishActivity extends AppCompatActivity implements ContactFragmen
     @Override
     public void onGetIds(ArrayList<Integer> ids) {
         wind.getRecipients().addAll(ids);
-        sendImage();
+        initFilters();
     }
 }

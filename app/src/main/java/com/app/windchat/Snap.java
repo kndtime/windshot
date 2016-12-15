@@ -63,9 +63,7 @@ public class Snap extends Application{
     }
 
     public static Bitmap getCurImg() {
-        Bitmap tmp = curImg;
-        curImg = null;
-        return tmp;
+        return curImg;
     }
 
     public static User getTmpUser() {
@@ -76,7 +74,7 @@ public class Snap extends Application{
         TmpUser = tmpUser;
     }
 
-    public static void setCurImg(Bitmap curImg) {
-        Snap.curImg = curImg;
+    public static void setCurImg(Bitmap tmp) {
+        curImg = tmp;
     }
 }

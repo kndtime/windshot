@@ -1,5 +1,6 @@
 package com.app.windchat;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -10,6 +11,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Environment;
 import android.text.format.DateUtils;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
@@ -18,7 +20,9 @@ import com.app.windchat.ui.activity.MainActivity;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -74,6 +78,13 @@ public class Utils {
         return Base64.encodeToString(b, Base64.DEFAULT);
     }
 
+    public static String imgTo64(Bitmap bm){
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bm.compress(Bitmap.CompressFormat.JPEG, 100, baos); //bm is the bitmap object
+        byte[] b = baos.toByteArray();
+        return Base64.encodeToString(b, Base64.DEFAULT);
+    }
+
     public static String formateDateFromstring(String inputFormat, String outputFormat, String inputDate){
 
         Date parsed = null;
@@ -111,6 +122,49 @@ public class Utils {
 
     public static String imgTo64(byte[] b){
         return Base64.encodeToString(b, Base64.DEFAULT);
+    }
+
+    public static Bitmap combineImages(Bitmap background, Bitmap foreground, Activity activity) {
+
+        int width = 0, height = 0;
+        Bitmap cs;
+
+        width = activity.getWindowManager().getDefaultDisplay().getWidth();
+        height = activity.getWindowManager().getDefaultDisplay().getHeight();
+
+        cs = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Canvas comboImage = new Canvas(cs);
+        background = Bitmap.createScaledBitmap(background, width, height, true);
+        comboImage.drawBitmap(background, 0, 0, null);
+        comboImage.drawBitmap(foreground, new Matrix(), null);
+
+        return cs;
+    }
+
+    public static File savebitmap(String filename, Bitmap bitmap) {
+        String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
+        OutputStream outStream = null;
+
+        File file = new File(filename + ".png");
+        if (file.exists()) {
+            file.delete();
+            file = new File(extStorageDirectory, filename + ".png");
+            Log.e("file exist", "" + file + ",Bitmap= " + filename);
+        }
+        try {
+            // make a new bitmap from your file
+            bitmap = BitmapFactory.decodeFile(file.getName());
+
+            outStream = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, outStream);
+            outStream.flush();
+            outStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Log.e("file", "" + file);
+        return file;
+
     }
 
     public static void animateError(Context context, View view){

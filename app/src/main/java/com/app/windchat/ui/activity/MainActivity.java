@@ -98,6 +98,7 @@ public class MainActivity extends AppCompatActivity implements CameraHostProvide
                 public void run() {
                     photoPath = getPhotoPath();
                     showTakenPicture(bitmap);
+                    Snap.setCurImg(bitmap);
                 }
             });
         }
