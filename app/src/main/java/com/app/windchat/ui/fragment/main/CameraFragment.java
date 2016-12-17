@@ -117,7 +117,7 @@ public class CameraFragment extends Fragment implements CameraHostProvider {
         btnFlash.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (cameraView.getFlashMode() == null)
+                if (cameraView == null || cameraView.getFlashMode() == null)
                     return;
                 if (cameraView.getFlashMode().equals("off")) {
                     setFlashMode("on");

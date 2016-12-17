@@ -45,6 +45,13 @@ public class Utils {
         Snap.getInstance().startActivity(i);
     }
 
+    public static void startMainIntent(int position){
+        Intent i = new Intent(Snap.getInstance(), MainActivity.class);
+        i.putExtra("position", position);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        Snap.getInstance().startActivity(i);
+    }
+
     public static Drawable getDrawable(int resource){
         return Snap.getInstance().getResources().getDrawable(resource);
     }

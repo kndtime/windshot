@@ -38,6 +38,7 @@ public class User {
     String imageStr64;
     @SerializedName("winds")
     ArrayList<Wind> winds;
+    boolean selected;
 
     public User() {
         this.id = 0;
@@ -52,6 +53,7 @@ public class User {
         this.pictureUrlSmall = "";
         this.imageStr64 = "";
         this.winds = new ArrayList<>();
+        this.selected = false;
     }
 
     public int getId() {
@@ -156,6 +158,14 @@ public class User {
 
     public ArrayList<Wind> getWinds() {
         return winds;
+    }
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
     }
 
     public void apply(){

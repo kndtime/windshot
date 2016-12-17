@@ -1,6 +1,7 @@
 package com.app.windchat.ui.adapter.list;
 
 import android.content.Context;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,8 +59,27 @@ public class ContactCheckAdapter extends BaseAdapter {
     public View getView(final int i, View view, ViewGroup viewGroup) {
         View root = inflater.inflate(R.layout.friend_check_item_layout, null);
         TextView username = (TextView) root.findViewById(R.id.user_name);
+
+        CardView container = (CardView) root.findViewById(R.id.container);
         CircularImageView image = (CircularImageView) root.findViewById(R.id.user_img);
-        CheckBox box = (CheckBox) root.findViewById(R.id.checkbox);
+        final CheckBox box = (CheckBox) root.findViewById(R.id.checkbox);
+        box.setChecked(getItem(i).isSelected());
+
+        if (box.isChecked()){
+            container.setCardBackgroundColor(context.getResources().getColor(R.color.colorPrimaryDark));
+        } else {
+            container.setCardBackgroundColor(null);
+        }
+
+        container.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                box.setChecked(!box.isChecked());
+                notifyDataSetChanged();
+            }
+        });
+
+
         username.setText(getItem(i).getUsername());
         Picasso.with(context)
                 .load(getItem(i).getPictureUrl())
@@ -68,18 +88,16 @@ public class ContactCheckAdapter extends BaseAdapter {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (!b){
+                    getItem(i).setSelected(false);
                     selected.remove((getItem(i)));
                 }else{
-                    selected.add(getItem(i));
+                    getItem(i).setSelected(true);
+                    if (!selected.contains(getItem(i)))
+                        selected.add(getItem(i));
                 }
                 listener.onIdsChanged(getIds(), getNames());
             }
         });
-        /*if (box.isChecked()){
-            ids.remove(Integer.valueOf(getItem(i).getId()));
-        }else{
-            ids.add(getItem(i).getId());
-        }*/
         return root;
     }
 
@@ -108,7 +126,8 @@ public class ContactCheckAdapter extends BaseAdapter {
         ArrayList<Integer> ids=  new ArrayList<>();
         for (User user: selected
              ) {
-            ids.add(user.getId());
+            if (!ids.contains(user.getId()))
+                ids.add(user.getId());
         }
         return ids;
     }

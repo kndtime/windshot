@@ -28,12 +28,15 @@ public class MainActivity extends AppCompatActivity implements CameraHostProvide
     File photoPath;
     public static boolean isFacing = true;
     public static MyCameraHost cameraHost;
+    private int position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         cameraHost = new MyCameraHost(this);
+        Intent i = getIntent();
+        position = i.getIntExtra("position", 1);
         initViews();
     }
 
@@ -41,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements CameraHostProvide
         pager = (ViewPager) findViewById(R.id.pager);
         MainPagerAdapter mainAdapter = new MainPagerAdapter(getSupportFragmentManager());
         pager.setAdapter(mainAdapter);
-        pager.setCurrentItem(1);
+        pager.setCurrentItem(position);
     }
 
     public static void toggle(){

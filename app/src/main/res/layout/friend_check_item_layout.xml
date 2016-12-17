@@ -3,14 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="8dp"
+    android:id="@+id/container"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp">
 
@@ -25,8 +24,10 @@
             app:civ_shadow_radius="10"
             app:civ_shadow_color="#8BC34A"
             android:scaleType="centerCrop"
-            android:layout_width="55dp"
-            android:layout_height="55dp" />
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -40,7 +41,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/user_name"
-                android:textSize="24sp"/>
+                android:textSize="18sp"/>
 
             <TextView
                 android:text="TextView"

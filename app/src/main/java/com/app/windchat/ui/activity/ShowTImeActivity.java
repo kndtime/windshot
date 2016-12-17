@@ -37,6 +37,7 @@ public class ShowTImeActivity extends AppCompatActivity {
     private Runnable tmprun;
     private Handler hand;
     private int position = 0;
+    private CountDownTimer timer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,8 +64,14 @@ public class ShowTImeActivity extends AppCompatActivity {
 
 
     public void displayImage(){
+        if (timer != null)
+            timer.cancel();
+
+        if (r != null)
+            handler.removeCallbacks(r);
+
         if (winds.size() == position){
-            Utils.startMainIntent();
+            Utils.startMainIntent(0);
         }
         else
         {
@@ -78,18 +85,13 @@ public class ShowTImeActivity extends AppCompatActivity {
             call.enqueue(new Callback<RestCode>() {
                 @Override
                 public void onResponse(Call<RestCode> call, Response<RestCode> response) {
-                    if (response.isSuccessful()){
-
-                    }
                 }
 
                 @Override
                 public void onFailure(Call<RestCode> call, Throwable t) {
-
                 }
             });
-
-            new CountDownTimer((getItem().getDuration() + 1) * 1000, 1000) {
+           timer =  new CountDownTimer((getItem().getDuration() + 1) * 1000, 1000) {
 
                 public void onTick(long millisUntilFinished) {
                     String tmp = String.format("%02d", millisUntilFinished / 1000);
@@ -101,7 +103,8 @@ public class ShowTImeActivity extends AppCompatActivity {
                     count.setText(tmp);
                 }
 
-            }.start();
+            };
+            timer.start();
 
         Picasso.with(this)
                 .load(getItem().getImageUrl())
