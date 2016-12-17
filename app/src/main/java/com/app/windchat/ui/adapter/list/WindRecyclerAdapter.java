@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 
 import com.app.windchat.R;
@@ -50,6 +51,11 @@ public class WindRecyclerAdapter extends RecyclerView.Adapter<WindViewHolder> {
         holder.getM_container().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (!isOpeneable(item)) {
+                    Toast.makeText(context, "Not the wind you're looking for...",
+                            Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 Intent i = new Intent(context, ShowTImeActivity.class);
                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 Snap.setTmpUser(item);
@@ -84,5 +90,14 @@ public class WindRecyclerAdapter extends RecyclerView.Adapter<WindViewHolder> {
     public void clearAll(){
         items.clear();
         notifyDataSetChanged();
+    }
+
+    private boolean isOpeneable(User user){
+        boolean open = false;
+        for (Wind wi :
+                user.getWinds()) {
+            open = open || !wi.isOpened();
+        }
+        return open;
     }
 }

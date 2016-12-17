@@ -48,17 +48,19 @@ public class ShowTImeActivity extends AppCompatActivity {
             finish();
         img = (ImageView) findViewById(R.id.back);
         count = (TextView) findViewById(R.id.count);
+
+        winds  = user.getWinds();
+        handler = new Handler();
+
         img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 position++;
+                if (r!=null)
                 handler.removeCallbacks(r);
-                hand.removeCallbacks(tmprun);
                 displayImage();
             }
         });
-        winds  = user.getWinds();
-        handler = new Handler();
         displayImage();
     }
 
