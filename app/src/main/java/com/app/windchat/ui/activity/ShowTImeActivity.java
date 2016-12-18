@@ -22,6 +22,7 @@ import com.squareup.picasso.Picasso;
 import org.parceler.Parcels;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -55,6 +56,7 @@ public class ShowTImeActivity extends AppCompatActivity {
         winds  = user.getWinds();
         handler = new Handler();
         winds= Utils.list_remove(winds);
+        Collections.reverse(winds);
         CircularImageView u_img = (CircularImageView) findViewById(R.id.u_img);
         TextView name = (TextView) findViewById(R.id.name);
         date = (TextView) findViewById(R.id.time);
@@ -69,7 +71,9 @@ public class ShowTImeActivity extends AppCompatActivity {
             public void onClick(View view) {
                 position++;
                 if (r!=null)
-                handler.removeCallbacks(r);
+                    handler.removeCallbacks(r);
+                if (timer != null)
+                    timer.cancel();
                 displayImage();
             }
         });

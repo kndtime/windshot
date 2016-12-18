@@ -95,27 +95,7 @@ View.OnTouchListener{
         btn_who.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                btn_who.setEnabled(false);
-                Toast.makeText(PublishActivity.this, "Sending your story...", Toast.LENGTH_SHORT).show();
-                Call<RestCode> call = new Api().getRestClient().sendStory(wind);
-                call.enqueue(new Callback<RestCode>() {
-                    @Override
-                    public void onResponse(Call<RestCode> call, Response<RestCode> response) {
-                        if (response.isSuccessful()) {
-                            Utils.startMainIntent();
-                            Toast.makeText(PublishActivity.this, "Success", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(PublishActivity.this, "Error", Toast.LENGTH_SHORT).show();
-                            btn_who.setEnabled(true);
-                        }
-
-                    }
-
-                    @Override
-                    public void onFailure(Call<RestCode> call, Throwable t) {
-
-                    }
-                });
+                initFilters(2);
             }
         });
 
@@ -134,9 +114,13 @@ View.OnTouchListener{
         //btn_text.setOnTouchListener(this);
     }
 
-    public void initFilters() {
+    public void initFilters(int pos) {
         if (btn_text.getText().toString().isEmpty() || Snap.getCurImg() == null) {
-            sendImage();
+            if (pos == 1)
+                sendImage();
+            else{
+                sendStory();
+            }
             return;
         }
         int arr[] = new int[2];
@@ -146,7 +130,10 @@ View.OnTouchListener{
         if (res != null) {
             wind.setImage(Utils.imgTo64(res));
         }
-        sendImage();
+        if (pos == 1)
+            sendImage();
+        else
+            sendStory();
     }
 
     public void sendImage() {
@@ -169,10 +156,34 @@ View.OnTouchListener{
         });
     }
 
+    public void sendStory(){
+        btn_who.setEnabled(false);
+        Toast.makeText(PublishActivity.this, "Sending your story...", Toast.LENGTH_SHORT).show();
+        Call<RestCode> call = new Api().getRestClient().sendStory(wind);
+        call.enqueue(new Callback<RestCode>() {
+            @Override
+            public void onResponse(Call<RestCode> call, Response<RestCode> response) {
+                if (response.isSuccessful()) {
+                    Utils.startMainIntent();
+                    Toast.makeText(PublishActivity.this, "Success", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(PublishActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                    btn_who.setEnabled(true);
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<RestCode> call, Throwable t) {
+
+            }
+        });
+    }
+
     @Override
     public void onGetIds(ArrayList<Integer> ids) {
         wind.getRecipients().addAll(ids);
-        initFilters();
+        initFilters(1);
     }
 
     @Override
