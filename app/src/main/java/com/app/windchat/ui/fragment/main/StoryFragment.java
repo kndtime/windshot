@@ -68,6 +68,15 @@ public class StoryFragment extends Fragment {
         list.setLayoutManager(llm);
         adapter = new StoryAdapter(getActivity(), new ArrayList<User>());
         list.setAdapter(adapter);
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                adapter.clearAll();
+                progressBar.setVisibility(View.VISIBLE);
+                sendQuerymy();
+
+            }
+        });
         sendQuerymy();
     }
 
@@ -83,6 +92,7 @@ public class StoryFragment extends Fragment {
                         adapter.onHeaderChanged(wind);
                     }
                 }
+                progressBar.setVisibility(View.GONE);
                 sendQuery();
             }
 

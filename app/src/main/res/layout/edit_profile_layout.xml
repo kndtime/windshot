@@ -85,6 +85,7 @@
                 android:layout_height="match_parent">
 
                 <ImageView
+                    android:alpha="0.65"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_margin="16dp"
@@ -106,6 +107,7 @@
                 android:layout_height="match_parent"
                 android:id="@+id/name_container">
                 <ImageView
+                    android:alpha="0.65"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_margin="16dp"
@@ -135,6 +137,7 @@
                 android:layout_height="match_parent"
                 android:id="@+id/birth_container">
                 <ImageView
+                    android:alpha="0.65"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_margin="16dp"
@@ -145,6 +148,72 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:id="@+id/birthday"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="16dp"
+                    android:textColor="@color/secondary_item"
+                    android:layout_weight="1" />
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center_vertical|right"
+                    android:layout_marginRight="16dp"
+                    android:src="@drawable/ic_keyboard_arrow_right_24dp" />
+            </LinearLayout>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:id="@+id/view31">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:alpha="0.65"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_margin="16dp"
+                    android:src="@drawable/ic_account_circle_black_24dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:id="@+id/logout"
+                    android:text="@string/logout"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="16dp"
+                    android:textColor="@color/secondary_item" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/password_container">
+                <ImageView
+                    android:alpha="0.65"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_margin="16dp"
+                    android:src="@drawable/ic_account_circle_black_24dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:id="@+id/password"
+                    android:text="@string/password_change"
                     android:layout_gravity="center_vertical"
                     android:layout_marginRight="16dp"
                     android:textColor="@color/secondary_item"

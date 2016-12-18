@@ -185,4 +185,9 @@ public class StoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
         return open;
     }
+
+    public void clearAll() {
+        users.clear();
+        notifyDataSetChanged();
+    }
 }
