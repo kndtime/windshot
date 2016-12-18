@@ -16,6 +16,7 @@ import com.app.windchat.api.model.RestCode;
 import com.app.windchat.api.model.User;
 import com.app.windchat.api.model.Wind;
 import com.app.windchat.api.rest.Api;
+import com.mikhaellopez.circularimageview.CircularImageView;
 import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
@@ -39,6 +40,7 @@ public class ShowTImeActivity extends AppCompatActivity {
     private int position = 0;
     private CountDownTimer timer;
     private int pos;
+    private TextView date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +54,15 @@ public class ShowTImeActivity extends AppCompatActivity {
         pos = getIntent().getIntExtra("position", 0);
         winds  = user.getWinds();
         handler = new Handler();
+
+        CircularImageView u_img = (CircularImageView) findViewById(R.id.u_img);
+        TextView name = (TextView) findViewById(R.id.name);
+        date = (TextView) findViewById(R.id.time);
+
+        Picasso.with(this)
+                .load(user.getPictureUrl())
+                .fit().centerCrop().into(u_img);
+        name.setText(user.getCompleteName());
 
         img.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,6 +95,7 @@ public class ShowTImeActivity extends AppCompatActivity {
                 displayImage();
                 return;
             }
+            date.setText(Utils.getTimeSpan(winds.get(position).getSendDate()));
             Call<RestCode> call = new Api().getRestClient().viewing(getItem().getId());
             call.enqueue(new Callback<RestCode>() {
                 @Override
