@@ -60,7 +60,7 @@ public class ContactCheckAdapter extends BaseAdapter {
         View root = inflater.inflate(R.layout.friend_check_item_layout, null);
         TextView username = (TextView) root.findViewById(R.id.user_name);
 
-        CardView container = (CardView) root.findViewById(R.id.container);
+        final CardView container = (CardView) root.findViewById(R.id.container);
         CircularImageView image = (CircularImageView) root.findViewById(R.id.user_img);
         final CheckBox box = (CheckBox) root.findViewById(R.id.checkbox);
         box.setChecked(getItem(i).isSelected());
@@ -98,6 +98,7 @@ public class ContactCheckAdapter extends BaseAdapter {
                 listener.onIdsChanged(getIds(), getNames());
             }
         });
+        box.setVisibility(View.GONE);
         return root;
     }
 

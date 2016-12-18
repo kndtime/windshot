@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.app.windchat.R;
 import com.app.windchat.api.model.User;
@@ -71,6 +72,8 @@ public class ContactFragment extends Fragment implements ContactCheckAdapter.onI
         btn_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                btn_send.setEnabled(false);
+                Toast.makeText(getActivity(), "Send your wind..", Toast.LENGTH_SHORT).show();
                 mListener.onGetIds(adapter.getIds());
             }
         });

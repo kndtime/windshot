@@ -80,9 +80,15 @@ public class StoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             if (users.get(0).getWinds().size() > 0){
                 hl.getM_date().setText(
                         Utils.getTimeSpan(
-                                users.get(0).getWinds().get(0).getSendDate()));
+                                users.get(0).getWinds().get(
+                                        users.get(0).getWinds().size() - 1).getSendDate()));
+                Picasso.with(context)
+                        .load(users.get(0).getWinds().get(
+                                users.get(0).getWinds().size() - 1).getImageUrl())
+                        .fit().centerCrop().into(hl.getM_type());
+                hl.getM_name().setText(users.get(0).getCompleteName());
             }else{
-                hl.getM_date().setText("Post a story");
+                hl.getM_date().setText("Share a story with your friends");
                 Utils.startMainIntent(1);
             }
 
@@ -119,7 +125,7 @@ public class StoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             Picasso.with(context)
                     .load(getItem(pos).getWinds().get(0).getImageUrl())
                     .fit().centerCrop().into(hl.getM_type());
-            hl.getM_name().setText(getItem(pos).getCompleteName());
+            hl.getM_name().setText(getItem(pos).getUsername());
             hl.getM_date().setText
                     (Utils.getTimeSpan(
                             users.get(pos).getWinds().get(0).getSendDate()));

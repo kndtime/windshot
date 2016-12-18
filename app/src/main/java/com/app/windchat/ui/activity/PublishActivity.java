@@ -95,6 +95,8 @@ View.OnTouchListener{
         btn_who.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                btn_who.setEnabled(false);
+                Toast.makeText(PublishActivity.this, "Sending your story...", Toast.LENGTH_SHORT).show();
                 Call<RestCode> call = new Api().getRestClient().sendStory(wind);
                 call.enqueue(new Callback<RestCode>() {
                     @Override
@@ -104,7 +106,9 @@ View.OnTouchListener{
                             Toast.makeText(PublishActivity.this, "Success", Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(PublishActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                            btn_who.setEnabled(true);
                         }
+
                     }
 
                     @Override

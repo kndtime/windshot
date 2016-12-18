@@ -180,6 +180,7 @@ public class User implements Comparator<User>{
         user.setFirstname(this.firstname);
         user.setLastname(this.lastname);
         user.setPictureUrl(this.pictureUrl);
+        user.setUsername(this.username);
         user.setId(this.id);
         return user;
     }
