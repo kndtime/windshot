@@ -2,6 +2,7 @@ package com.app.windchat.ui.adapter.list;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +16,9 @@ import com.app.windchat.Utils;
 import com.app.windchat.api.model.User;
 import com.app.windchat.api.model.Wind;
 import com.app.windchat.ui.activity.ShowTImeActivity;
+import com.app.windchat.ui.custom.picasso.GrayscaleTransformation;
 import com.app.windchat.ui.view.WindViewHolder;
+import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
 
@@ -46,14 +49,13 @@ public class WindRecyclerAdapter extends RecyclerView.Adapter<WindViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(WindViewHolder holder, int position) {
+    public void onBindViewHolder(final WindViewHolder holder, int position) {
         final User item = getItem(holder.getAdapterPosition());
         holder.getM_container().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (!isOpeneable(item)) {
-                    Toast.makeText(context, "Not the wind you're looking for...",
-                            Toast.LENGTH_SHORT).show();
+                    Utils.animateError(context, holder.getM_container());
                     return;
                 }
                 Intent i = new Intent(context, ShowTImeActivity.class);
@@ -62,7 +64,24 @@ public class WindRecyclerAdapter extends RecyclerView.Adapter<WindViewHolder> {
                 context.startActivity(i);
             }
         });
-        String time = "Received " + Utils.getTimeSpan(item.getWinds().get(0).getSendDate());
+        String time = "";
+        if (item.getWinds().get(0).isOpened()) {
+            Picasso.with(context)
+                    .load(item.getPictureUrl())
+                    .fit().centerCrop()
+                    .transform(new GrayscaleTransformation(Picasso.with(context)))
+                    .into(holder.getM_type());
+            time = "Seen - Received " + Utils.getTimeSpan(item.getWinds().get(0).getSendDate());
+            holder.getM_date().setTypeface(null, Typeface.NORMAL);
+        }else {
+            Picasso.with(context)
+                    .load(item.getPictureUrl())
+                    .fit().centerCrop()
+                    .into(holder.getM_type());
+            time = "Received " + Utils.getTimeSpan(item.getWinds().get(0).getSendDate());
+            holder.getM_date().setTypeface(null, Typeface.BOLD);
+        }
+
         holder.getM_date().setText(time);
         holder.getM_name().setText(item.getCompleteName());
     }

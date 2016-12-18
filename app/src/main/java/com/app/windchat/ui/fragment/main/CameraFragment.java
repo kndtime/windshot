@@ -117,6 +117,7 @@ public class CameraFragment extends Fragment implements CameraHostProvider {
         btnFlash.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Utils.animateError(getActivity(), btnFlash);
                 if (cameraView == null || cameraView.getFlashMode() == null)
                     return;
                 if (cameraView.getFlashMode().equals("off")) {
@@ -133,6 +134,7 @@ public class CameraFragment extends Fragment implements CameraHostProvider {
         btnSwap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Utils.animateError(getActivity(), btnSwap);
                 swapCamera();
             }
         });
@@ -145,14 +147,6 @@ public class CameraFragment extends Fragment implements CameraHostProvider {
             }
         });
 
-    }
-
-    public void startFaceDetection() {
-        cameraView.startFaceDetection();
-    }
-
-    public void stopFaceDetection() {
-        cameraView.stopFaceDetection();
     }
 
     public void setFlashMode(String mode) {
@@ -234,8 +228,6 @@ public class CameraFragment extends Fragment implements CameraHostProvider {
             }
         });
     }
-
-
 
     @Override
     public void onResume() {

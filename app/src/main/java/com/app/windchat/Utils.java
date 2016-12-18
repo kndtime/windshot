@@ -16,6 +16,8 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 
+import com.app.windchat.api.model.User;
+import com.app.windchat.api.model.Wind;
 import com.app.windchat.ui.activity.MainActivity;
 
 import java.io.ByteArrayOutputStream;
@@ -26,7 +28,10 @@ import java.io.OutputStream;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.Locale;
 
@@ -75,6 +80,32 @@ public class Utils {
         // Save a file: path for use with ACTION_VIEW intents
         //mCurrentPhotoPath = "file:" + image.getAbsolutePath();
         return image;
+    }
+
+    public static ArrayList<User> splitUser(ArrayList<User> users){
+        ArrayList<User> tmp = new ArrayList<>();
+        tmp.addAll(users);
+        for (User user :
+                users) {
+            if (user.getWinds().size() > 1)
+            for (Wind wind:
+                    user.getWinds()) {
+                if (wind.isOpened()){
+                    User tmp_user = user.clone();
+                    tmp_user.getWinds().add(wind);
+                    tmp.add(tmp_user);
+                }
+            }
+        }
+        Collections.sort(tmp, new Comparator<User>() {
+            @Override
+            public int compare(User user, User t1) {
+                Long o1 = user.getTime();
+                Long o2 = t1.getTime();
+                return o2.compareTo(o1);
+            }
+        });
+        return tmp;
     }
 
     public static String imgTo64(String path){

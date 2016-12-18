@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.app.windchat.R;
 import com.app.windchat.Snap;
+import com.app.windchat.Utils;
 import com.app.windchat.api.model.User;
 import com.app.windchat.api.model.Wind;
 import com.app.windchat.api.rest.Api;
@@ -101,11 +102,14 @@ public class MediaFragment extends Fragment {
                 if (response.isSuccessful()){
                     JsonArray array = response.body().getAsJsonArray();
                     if (array!=null) {
+                        ArrayList<User> them = new ArrayList<>();
                         for (JsonElement e : array) {
                             User user = new Gson().fromJson(e, User.class);
                             user.apply();
-                            adapter.add(user);
+                            them.add(user);
                         }
+                        them = Utils.splitUser(them);
+                        adapter.addAll(them);
                     }
                 }
                 refreshLayout.setRefreshing(false);

@@ -1,16 +1,23 @@
 package com.app.windchat.api.model;
 
+import com.app.windchat.Utils;
 import com.google.gson.annotations.SerializedName;
 
 import org.parceler.Parcel;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by banal_a on 06/12/2016.
  */
 @Parcel
-public class User {
+public class User implements Comparator<User>{
 
     @SerializedName("id")
     private int id;
@@ -168,10 +175,39 @@ public class User {
         this.selected = selected;
     }
 
+    public User clone(){
+        User user = new User();
+        user.setFirstname(this.firstname);
+        user.setLastname(this.lastname);
+        user.setPictureUrl(this.pictureUrl);
+        user.setId(this.id);
+        return user;
+    }
+
+    public long getTime(){
+        if (winds.isEmpty())
+            return 0;
+        DateFormat format = new SimpleDateFormat(Utils.dateFormat, Locale.getDefault());
+        try {
+            Date date = format.parse(winds.get(0).getSendDate());
+            return date.getTime();
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
     public void apply(){
         for (Wind wind: winds
              ) {
             wind.setUser(this);
         }
+    }
+
+    @Override
+    public int compare(User user, User t1) {
+        if (user.getTime() < t1.getTime())
+            return 0;
+        return 1;
     }
 }
