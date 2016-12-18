@@ -89,7 +89,8 @@ public class StoryFragment extends Fragment {
                     JsonArray array = response.body().getAsJsonArray();
                     for (JsonElement e : array) {
                         Wind wind = new Gson().fromJson(e, Wind.class);
-                        adapter.onHeaderChanged(wind);
+                        if (!adapter.getUsers().get(0).getWinds().contains(wind))
+                            adapter.onHeaderChanged(wind);
                     }
                 }
                 progressBar.setVisibility(View.GONE);
