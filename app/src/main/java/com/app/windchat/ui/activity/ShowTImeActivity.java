@@ -54,7 +54,7 @@ public class ShowTImeActivity extends AppCompatActivity {
         pos = getIntent().getIntExtra("position", 0);
         winds  = user.getWinds();
         handler = new Handler();
-
+        winds= Utils.list_remove(winds);
         CircularImageView u_img = (CircularImageView) findViewById(R.id.u_img);
         TextView name = (TextView) findViewById(R.id.name);
         date = (TextView) findViewById(R.id.time);
@@ -62,7 +62,7 @@ public class ShowTImeActivity extends AppCompatActivity {
         Picasso.with(this)
                 .load(user.getPictureUrl())
                 .fit().centerCrop().into(u_img);
-        name.setText(user.getCompleteName());
+        name.setText(user.getUsername());
 
         img.setOnClickListener(new View.OnClickListener() {
             @Override

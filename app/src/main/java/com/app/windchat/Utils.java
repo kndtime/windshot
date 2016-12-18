@@ -205,6 +205,17 @@ public class Utils {
 
     }
 
+    public static ArrayList<Wind> list_remove( ArrayList<Wind> winds){
+        ArrayList<Wind> nWinds = new ArrayList<>();
+        for (Wind wind: winds
+             ) {
+            if (!nWinds.contains(wind)){
+                nWinds.add(wind);
+            }
+        }
+        return nWinds;
+    }
+
     public static void animateError(Context context, View view){
         view.startAnimation(AnimationUtils.loadAnimation(context, R.anim.shake_error));
     }

@@ -132,4 +132,13 @@ public class Wind {
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Wind){
+            Wind wind = (Wind) obj;
+            return id == wind.getId();
+        }
+        return super.equals(obj);
+    }
 }
