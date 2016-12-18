@@ -188,6 +188,7 @@ public class StoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     public void clearAll() {
         users.clear();
+        users.add(Snap.getCurrent());
         notifyDataSetChanged();
     }
 }
