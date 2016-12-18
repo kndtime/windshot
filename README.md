@@ -13,42 +13,42 @@ These is my Android project for 3ie lab of EPITA.
 <h2>List of Features</h2>
 
 <h3>Webservices.</h3>
-** Account Creation
-** Account Login
-** Account Auto-Login when the app is restarted
-** Acccount Edition
+* **Account Creation**
+* **Account Login**
+* **Account Auto-Login when the app is restarted**
+* **Account Edition**
 
 
-** Accept Friendship
-** UnAccept Firendship
-** Search an User
-** Add an User as friend
+* **Accept Friendship**
+* **UnAccept Firendship**
+* **Search an User**
+* **Add an User as friend**
 
-** Wind Sending
-** Wind Receiving
-** Wind Editing
+* **Wind Sending**
+* **Wind Receiving**
+* **Wind Editing**
 
-** Story Sending
-** Story Receiving
-** Story Editing
+* **Story Sending**
+* **Story Receiving**
+* **Story Editing**
 
 
 <h3>UI/UX</h3>
-** Start Camera when app start
-** Camera stay persistent between Fragment swipes
-** Camera Auto-focus
-** Camera Swip
-** Switch Camera
-** Double Tap to switch Camera
+* **Start Camera when app start**
+* **Camera stay persistent between Fragment swipes**
+* **Camera Auto-focus**
+* **Camera Swip**
+* **Switch Camera**
+* **Double Tap to switch Camera**
 
-** Material Design
-** Animation on Error
+* **Material Design**
+* **Animation on Error**
 
 <h4>Major Libraries - Liscenses.</h4>
-** Picasso
-** Retrofit
-** GSON
-** Google Support Library
+* **Picasso**
+* **Retrofit**
+* **GSON**
+* **Google Support Library**
 
 
 
