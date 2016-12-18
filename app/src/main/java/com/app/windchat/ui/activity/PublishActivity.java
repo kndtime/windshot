@@ -95,7 +95,23 @@ View.OnTouchListener{
         btn_who.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Call<RestCode> call = new Api().getRestClient().sendStory(wind);
+                call.enqueue(new Callback<RestCode>() {
+                    @Override
+                    public void onResponse(Call<RestCode> call, Response<RestCode> response) {
+                        if (response.isSuccessful()) {
+                            Utils.startMainIntent();
+                            Toast.makeText(PublishActivity.this, "Success", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(PublishActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                        }
+                    }
 
+                    @Override
+                    public void onFailure(Call<RestCode> call, Throwable t) {
+
+                    }
+                });
             }
         });
 

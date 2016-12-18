@@ -30,6 +30,9 @@ public class Wind {
     private String imageUrl;
     @SerializedName("isOpened")
     private boolean isOpened;
+    @SerializedName("imageLink")
+    private String imageLink;
+
     private User user;
 
     public Wind() {
@@ -41,6 +44,7 @@ public class Wind {
         this.image = "";
         this.imageUrl = "";
         this.sendDate = "";
+        this.imageUrl = "";
         this.user = new User();
         this.isOpened = true;
     }
@@ -115,6 +119,14 @@ public class Wind {
 
     public boolean isOpened() {
         return isOpened;
+    }
+
+    public String getImageLink() {
+        return imageLink;
+    }
+
+    public void setImageLink(String imageLink) {
+        this.imageLink = imageLink;
     }
 
     public void setImageUrl(String imageUrl) {

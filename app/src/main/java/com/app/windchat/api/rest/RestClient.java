@@ -86,4 +86,13 @@ public interface RestClient {
 
     @GET("/api/friend/blockedList")
     Call<ArrayList<User>> get_blockedList();
+
+    @GET("/api/story/myList")
+    Call<JsonElement> get_mystory();
+
+    @GET("/api/story/list")
+    Call<JsonElement> get_story();
+
+    @POST("/api/story")
+    Call<RestCode> sendStory(@Body Wind wind);
 }

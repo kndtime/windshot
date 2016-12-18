@@ -30,6 +30,7 @@
     <string name="edit_name">Edit your name</string>
     <string name="save_profile">Update profile</string>
     <string name="cancel">Cancel</string>
+    <string name="no_story">No story :(</string>
 
     <string-array name="img_change">
         <item>Upload an Image</item>

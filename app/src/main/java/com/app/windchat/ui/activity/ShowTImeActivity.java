@@ -38,6 +38,7 @@ public class ShowTImeActivity extends AppCompatActivity {
     private Handler hand;
     private int position = 0;
     private CountDownTimer timer;
+    private int pos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +49,7 @@ public class ShowTImeActivity extends AppCompatActivity {
             finish();
         img = (ImageView) findViewById(R.id.back);
         count = (TextView) findViewById(R.id.count);
-
+        pos = getIntent().getIntExtra("position", 0);
         winds  = user.getWinds();
         handler = new Handler();
 
@@ -73,7 +74,7 @@ public class ShowTImeActivity extends AppCompatActivity {
             handler.removeCallbacks(r);
 
         if (winds.size() == position){
-            Utils.startMainIntent(0);
+            Utils.startMainIntent(pos);
         }
         else
         {
