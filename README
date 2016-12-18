@@ -10,6 +10,48 @@ These is my Android project for 3ie lab of EPITA.
 
 **Note:** This project is meant to work on all Android devices over API 17, The api 16 would have been possible but I have choosen to implement it that way because I've gained some time. I've also compiled the project targeting API 21 (Lollipop) to not have to deal with runtime permission.
 
+<h2>List of Features</h2>
+
+<h3>Webservices.</h3>
+** Account Creation
+** Account Login
+** Account Auto-Login when the app is restarted
+** Acccount Edition
+
+
+** Accept Friendship
+** UnAccept Firendship
+** Search an User
+** Add an User as friend
+
+** Wind Sending
+** Wind Receiving
+** Wind Editing
+
+** Story Sending
+** Story Receiving
+** Story Editing
+
+
+<h3>UI/UX</h3>
+** Start Camera when app start
+** Camera stay persistent between Fragment swipes
+** Camera Auto-focus
+** Camera Swip
+** Switch Camera
+** Double Tap to switch Camera
+
+** Material Design
+** Animation on Error
+
+<h4>Major Libraries - Liscenses.</h4>
+** Picasso
+** Retrofit
+** GSON
+** Google Support Library
+
+
+
 <h2>Frequently Asked Questions</h2>
 
 * **Why I haven't implemented the user Birthday
@@ -39,3 +81,7 @@ Because it needed to import libraries, I am not really confortable with using th
 * Thanks to Google for Android Studio
 * Thanks to Google for Search
 * Thanks to StackOverflow for Debug 
+
+<h2>Authors</h2>
+
+* Banal_a aka Axel Banal
