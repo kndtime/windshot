@@ -42,6 +42,7 @@ public class LoginActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                login.setEnabled(false);
                 user.setEmail(edit_email.getText().toString());
                 user.setPassword(edit_password.getText().toString());
                 if (valide()) {
@@ -51,10 +52,13 @@ public class LoginActivity extends AppCompatActivity {
                         public void onResponse(Call<User> call, Response<User> response) {
                             if (response.isSuccessful()) {
                                 Snap.setCurrent(response.body());
-                                Utils.startMainIntent();
+                                Intent i = new Intent(LoginActivity.this, MainActivity.class);
+                                startActivity(i);
+                                Toast.makeText(LoginActivity.this, "Received", Toast.LENGTH_SHORT).show();
                             } else {
                                 Toast.makeText(LoginActivity.this, "Error..", Toast.LENGTH_SHORT).show();
                             }
+                            login.setEnabled(true);
                         }
 
                         @Override

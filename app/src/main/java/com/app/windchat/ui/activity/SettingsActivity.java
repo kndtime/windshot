@@ -66,6 +66,9 @@ public class SettingsActivity extends AppCompatActivity {
     private LinearLayout birth_container;
     private TextView birthday;
 
+    private LinearLayout logout;
+
+
     private User current;
 
     private final int RESULT_LOAD_IMAGE = 14;
@@ -93,6 +96,7 @@ public class SettingsActivity extends AppCompatActivity {
         bar_mess = (ImageView) findViewById(R.id.bar_mess);
         bar_edit = (TextView) findViewById(R.id.bar_edit);
         fab = (FloatingActionButton) findViewById(R.id.fab);
+        logout = (LinearLayout) findViewById(R.id.logout);
 
         img_container = (LinearLayout) findViewById(R.id.img_container);
         img = (CircularImageView) findViewById(R.id.img);
@@ -188,6 +192,13 @@ public class SettingsActivity extends AppCompatActivity {
                 update();
             }
         });
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                logout();
+            }
+        });
     }
 
     private void startCamera() {
@@ -240,6 +251,13 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void logout(){
+        Snap.setCurrent(new User());
+        Intent i = new Intent(this, LoginActivity.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(i);
     }
 
     @Override

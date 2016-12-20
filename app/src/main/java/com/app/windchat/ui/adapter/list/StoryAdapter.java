@@ -12,6 +12,7 @@ import com.app.windchat.Snap;
 import com.app.windchat.Utils;
 import com.app.windchat.api.model.User;
 import com.app.windchat.api.model.Wind;
+import com.app.windchat.ui.activity.MainActivity;
 import com.app.windchat.ui.activity.ShowTImeActivity;
 import com.app.windchat.ui.view.StoryFooterView;
 import com.app.windchat.ui.view.StoryHeaderView;
@@ -72,6 +73,7 @@ public class StoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             if (getItemCount() < 2)
                 return;
 
+            if (!users.get(0).getPictureUrl().isEmpty())
             Picasso.with(context)
                     .load(users.get(0).getPictureUrl())
                     .fit().centerCrop().into(hl.getM_type());
@@ -89,7 +91,12 @@ public class StoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 hl.getM_name().setText(users.get(0).getCompleteName());
             }else{
                 hl.getM_date().setText("Share a story with your friends");
-                Utils.startMainIntent(1);
+                hl.getM_date().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        MainActivity.getPager().setCurrentItem(1);
+                    }
+                });
             }
 
             if (users.size() > 1)

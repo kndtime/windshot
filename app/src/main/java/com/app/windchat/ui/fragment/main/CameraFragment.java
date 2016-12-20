@@ -160,6 +160,7 @@ public class CameraFragment extends Fragment implements CameraHostProvider {
     }
 
     private void setProfile(){
+        if (!current.getPictureUrl().isEmpty())
         Picasso.with(getActivity())
                 .load(current.getPictureUrl())
                 .fit().centerCrop()
@@ -232,14 +233,17 @@ public class CameraFragment extends Fragment implements CameraHostProvider {
     @Override
     public void onResume() {
         super.onResume();
-        btnTakePhoto.setEnabled(true);
-        cameraView.onResume();
+        if (btnTakePhoto != null)
+            btnTakePhoto.setEnabled(true);
+        if (cameraView != null)
+            cameraView.onResume();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        cameraView.onPause();
+        if (cameraView != null)
+            cameraView.onPause();
     }
 
     public void onTakePhotoClick() {

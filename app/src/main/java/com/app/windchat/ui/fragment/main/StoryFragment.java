@@ -92,9 +92,10 @@ public class StoryFragment extends Fragment {
                         if (!adapter.getUsers().get(0).getWinds().contains(wind))
                             adapter.onHeaderChanged(wind);
                     }
+                    sendQuery();
                 }
                 progressBar.setVisibility(View.GONE);
-                sendQuery();
+
             }
 
             @Override

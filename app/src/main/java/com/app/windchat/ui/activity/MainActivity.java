@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements CameraHostProvide
 
     private void initViews(){
         pager = (ViewPager) findViewById(R.id.pager);
+        pager.setOffscreenPageLimit(2);
         MainPagerAdapter mainAdapter = new MainPagerAdapter(getSupportFragmentManager());
         pager.setAdapter(mainAdapter);
         pager.setCurrentItem(position);

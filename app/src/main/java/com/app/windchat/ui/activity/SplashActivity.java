@@ -22,12 +22,14 @@ public class SplashActivity extends AppCompatActivity {
             public void run() {
                 if (Snap.getCurrent().getToken().isEmpty()){
                 Intent intent = new Intent(getApplication(), LoginActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 finish();
                 }
                 else{
-                    Utils.startMainIntent();
+                    Intent intent = new Intent(getApplication(), MainActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
                     finish();
                 }
             }

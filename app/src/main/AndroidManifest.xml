@@ -30,8 +30,12 @@
         <activity
             android:name=".ui.activity.MainActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.TransparentActivity.FullScreen" />
-        <activity android:name=".ui.activity.LoginActivity" />
+            android:theme="@style/AppTheme.TransparentActivity.FullScreen">
+
+            </activity>
+        <activity android:name=".ui.activity.LoginActivity" >
+
+            </activity>
         <activity
             android:name=".ui.activity.SplashActivity"
             android:theme="@style/SplashTheme">
