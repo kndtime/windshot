@@ -217,8 +217,10 @@ public class SettingsActivity extends AppCompatActivity {
         String date_after =
                 Utils.formateDateFromstring(Utils.dateFormat, "dd, MMM yyyy", user.getBirthday());
         birthday.setText(date_after);
-        Picasso.with(this).load(user.getPictureUrl()).fit().centerCrop().into(bar_img);
-        Picasso.with(this).load(user.getPictureUrl()).fit().centerCrop().into(img);
+        if (!user.getPictureUrl().isEmpty())
+            Picasso.with(this).load(user.getPictureUrl()).fit().centerCrop().into(bar_img);
+        if (!user.getPictureUrl().isEmpty())
+            Picasso.with(this).load(user.getPictureUrl()).fit().centerCrop().into(img);
     }
 
     public void update(){

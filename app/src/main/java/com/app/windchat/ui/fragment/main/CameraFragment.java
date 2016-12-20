@@ -219,6 +219,7 @@ public class CameraFragment extends Fragment implements CameraHostProvider {
             public void onResponse(Call<User> call, Response<User> response) {
                 if (response.isSuccessful()){
                     current = response.body();
+                    Snap.setCurrent(response.body());
                 }
                 setProfile();
             }
