@@ -94,6 +94,7 @@ public class StoryFragment extends Fragment {
                     }
                     sendQuery();
                 }
+                refreshLayout.setRefreshing(false);
                 progressBar.setVisibility(View.GONE);
 
             }
